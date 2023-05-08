@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from "next/image";
 import logo from '../images/logo.png'
+import Link from "next/link";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +42,11 @@ const Navbar = () => {
                                     Contact
                                 </a>
                             </li>
+                            <li>
+                                <Link href="/Login" className="hover:text-gray-300 underline">
+                                    Login/SignUp
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="md:hidden">
@@ -55,27 +61,32 @@ const Navbar = () => {
                 </div>
             </div>
             {isOpen && (
-                <div className="md:hidden">
-                    <ul className="flex flex-col space-y-2 py-4 px-3 absolute top-16 left-0 w-full bg-gray-700">
-                        <li className="transform transition-all duration-500 ease-in-out">
+                <div className="md:hidden text-xl">
+                    <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-16 left-0 w-full bg-black">
+                        <li className="transform text-center transition-all duration-500 ease-in-out">
                             <a href="/" className="hover:text-gray-300">
                                 Home
                             </a>
                         </li>
-                        <li className="transform transition-all duration-500 ease-in-out">
+                        <li className="transform text-center transition-all duration-500 ease-in-out">
                             <a href="/about" className="hover:text-gray-300">
                                 About
                             </a>
                         </li>
-                        <li className="transform transition-all duration-500 ease-in-out">
+                        <li className="transform text-center transition-all duration-500 ease-in-out">
                             <a href="/services" className="hover:text-gray-300">
                                 Services
                             </a>
                         </li>
-                        <li className="transform transition-all duration-500 ease-in-out">
+                        <li className="transform text-center transition-all duration-500 ease-in-out">
                             <a href="/contact" className="hover:text-gray-300">
                                 Contact
                             </a>
+                        </li>
+                        <li className="transform text-center transition-all duration-500 ease-in-out">
+                            <Link href="/Login" className="hover:text-gray-300 underline">
+                                Login/SignUp
+                            </Link>
                         </li>
                     </ul>
                 </div>
