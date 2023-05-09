@@ -5,9 +5,9 @@ import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-      <>
+      <div className={'bg-gray-950 text-white'}>
         <Navbar/>
         <Component {...pageProps} />
-      </>
+      </div>
   )
 }

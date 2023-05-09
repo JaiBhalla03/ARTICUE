@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {FaBars, FaSearch, FaShoppingCart, FaTimes, FaUser} from 'react-icons/fa';
 import Image from "next/image";
 import logo from '../images/logo1.png'
@@ -6,13 +6,30 @@ import Link from "next/link";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const prevScrollY = useRef(0);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > prevScrollY.current) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+            prevScrollY.current = currentScrollY;
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <nav className="bg-gray-950 text-white border-b-[1px] border-b-grey-200">
+        <nav className={`z-20 bg-gray-950 text-white border-b-[1px] border-b-grey-200 transition-all duration-700 transition-all ${
+            isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100 sticky top-0"
+        }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
