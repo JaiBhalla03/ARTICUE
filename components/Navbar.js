@@ -98,26 +98,52 @@ const Navbar = () => {
             </div>
             {isOpen && (
                 <div className="md:hidden text-xl">
-                    <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-16 left-0 w-full bg-black">
-                        <li className="transform text-center transition-all duration-500 ease-in-out">
+                    <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-16 left-0 w-full bg-gray-950">
+                        <li className="text-center">
                             <a href="/" className="hover:text-gray-300">
                                 Artworks
                             </a>
                         </li>
-                        <li className="transform text-center transition-all duration-500 ease-in-out">
+                        <li className="text-center">
                             <a href="/about" className="hover:text-gray-300">
                                 Artist
                             </a>
                         </li>
-                        <li className="transform text-center transition-all duration-500 ease-in-out">
+                        <li className="text-center">
                             <a href="/services" className="hover:text-gray-300">
                                 About
                             </a>
                         </li>
-                        <li className="transform text-center transition-all duration-500 ease-in-out">
-                            <Link href="/Login" className="hover:text-gray-300 underline">
-                                Login/SignUp
-                            </Link>
+                        <li className={''}>
+                            <a className="flex justify-center items-center hover:text-gray-300">
+                                <div className={'flex'}>
+                                    See your cart <FaShoppingCart className={'ml-2'} size={24}/>
+                                </div>
+                            </a>
+                        </li>
+                        <li className={''}>
+                            <a className="flex justify-center items-center hover:text-gray-300">
+                                <div className={'flex'}>
+                                    Search by keywords <FaSearch className={'ml-2'} size={24}/>
+                                </div>
+                            </a>
+                        </li>
+                        <li className={'relative'}>
+                            <div className="flex justify-center items-center hover:text-gray-300" onClick={() => setShowPopup(!showPopup)}>
+                                <div className={'flex'}>
+                                    Login/SignUp<FaUser className={'ml-2'} size={24}/>
+                                </div>
+                            </div>
+                            {showPopup && (
+                                <div className="animate-slide-down absolute top-10 w-full mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-md z-10">
+                                    <Link href="/Login" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-md hover:text-white">
+                                        Login
+                                    </Link>
+                                    <Link href="#" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-md hover:text-white">
+                                        Sign up
+                                    </Link>
+                                </div>
+                            )}
                         </li>
                     </ul>
                 </div>

@@ -22,7 +22,7 @@ const Hero = () => {
         setCurrentSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1);
     };
     return (
-        <div className={'h-screen flex px-28 bg-gray-950'}>
+        <div className={'sm:h-[200vh] md:h-[100vh] sm:px-16 md:px-24 flex sm:flex-col md:flex-row lg: px-28 bg-gray-950'}>
             <div className={'flex flex-col gap-14'}>
                 <div className={'pt-20'}>
                     <div className={'flex'}>
@@ -52,13 +52,13 @@ const Hero = () => {
                     </li>
                 </ul>
             </div>
-            <div className="relative mt-5 shadow-sm shadow-gray-800 ml-5 rounded-md w-full h-full">
+            <div className="h-[100vh] relative mt-5 shadow-sm shadow-gray-800 md:ml-5 rounded-sm w-full">
                 <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                    <div className={'w-[80%] h-[80%] overflow-hidden rounded-md'}>
+                    <div className="w-[80%] sm:h-[80vh] h-[60vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] overflow-hidden rounded-md">
                         <Image
                             src={slides[currentSlide]}
                             alt="Artwork"
-                            className="object-cover rounded-md hover:scale-110 duration-500 transition-all"
+                            className="rounded-md hover:scale-110 duration-500 transition-all"
                         />
                     </div>
                 </div>

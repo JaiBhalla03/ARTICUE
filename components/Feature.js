@@ -2,7 +2,7 @@ import React from 'react';
 
 const Feature = ({heading, description}) => {
     return (
-        <div className={'cursor-pointer relative group w-72 shadow-sm shadow-gray-800 rounded-sm p-8'}>
+        <div className={'cursor-pointer relative group sm:w-10/12 sm:my-4 sm:mx-auto md:w-72 lg:w-72 shadow-sm shadow-gray-800 rounded-sm p-8'}>
             <h1 className={'text-2xl'}>
                 {heading}
             </h1>
