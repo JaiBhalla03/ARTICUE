@@ -22,15 +22,15 @@ const Hero = () => {
         setCurrentSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1);
     };
     return (
-        <div className={'h-screen flex px-16 bg-gray-950'}>
-            <div className={'flex flex-col gap-11'}>
+        <div className={'h-screen flex px-28 bg-gray-950'}>
+            <div className={'flex flex-col gap-14'}>
                 <div className={'pt-20'}>
                     <div className={'flex'}>
-                        <h1 className={'text-6xl font-light mt-3 flex'}>
+                        <h1 className={'text-5xl font-light mt-4 flex'}>
                             Welcome to</h1>
-                        <Image className={'mx-4'} src={logo} alt={''} width={250} height={250}/>
+                        <Image className={'mx-4'} src={logo} alt={''} width={230} height={230}/>
                     </div>
-                    <h1 className={'text-2xl'}>
+                    <h1 className={'text-xl'}>
                         the premier online marketplace for art enthusiasts seeking exceptional and affordable works of art.
                     </h1>
                 </div>
@@ -52,31 +52,31 @@ const Hero = () => {
                     </li>
                 </ul>
             </div>
-            <div className={'sm:w-full p-4 w-1/2'}>
-                <div className="relative shadow-sm shadow-gray-800 rounded-md w-full h-full">
-                    <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative mt-5 shadow-sm shadow-gray-800 ml-5 rounded-md w-full h-full">
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                    <div className={'w-[80%] h-[80%] overflow-hidden rounded-md'}>
                         <Image
                             src={slides[currentSlide]}
                             alt="Artwork"
-                            className="object-cover w-[80%] h-[80%] rounded-md"
+                            className="object-cover rounded-md hover:scale-110 duration-500 transition-all"
                         />
                     </div>
-                    <div className="absolute z-10 right-6 top-1/2 transform -translate-y-1/2">
-                        <button
-                            onClick={prevSlide}
-                            className="text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
-                        >
-                            <AiOutlineArrowRight/>
-                        </button>
-                    </div>
-                    <div className="absolute z-10 left-6 top-1/2 transform -translate-y-1/2">
-                        <button
-                            onClick={nextSlide}
-                            className="text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
-                        >
-                            <AiOutlineArrowLeft/>
-                        </button>
-                    </div>
+                </div>
+                <div className="absolute z-10 right-6 top-1/2 transform -translate-y-1/2">
+                    <button
+                        onClick={prevSlide}
+                        className="text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
+                    >
+                        <AiOutlineArrowRight/>
+                    </button>
+                </div>
+                <div className="absolute z-10 left-6 top-1/2 transform -translate-y-1/2">
+                    <button
+                        onClick={nextSlide}
+                        className="text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
+                    >
+                        <AiOutlineArrowLeft/>
+                    </button>
                 </div>
             </div>
         </div>

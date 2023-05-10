@@ -8,7 +8,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const prevScrollY = useRef(0);
-
+    const [showPopup, setShowPopup] = useState(false);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -67,10 +67,20 @@ const Navbar = () => {
                                         <FaSearch size={20}/>
                                     </a>
                                 </li>
-                                <li className={'flex flex-col justify-center'}>
-                                    <Link href="/Login" className="hover:text-gray-300 underline">
+                                <li className={'relative flex flex-col justify-center'}>
+                                    <div className="hover:text-gray-300 underline" onClick={() => setShowPopup(!showPopup)}>
                                         <FaUser size={20}/>
-                                    </Link>
+                                    </div>
+                                    {showPopup && (
+                                        <div className="animate-slide-down absolute top-12 -right-8 mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-md z-10">
+                                            <Link href="/Login" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-md hover:text-white">
+                                                Login
+                                            </Link>
+                                            <Link href="#" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-md hover:text-white">
+                                                Sign up
+                                            </Link>
+                                        </div>
+                                    )}
                                 </li>
                             </ul>
                         </ul>
