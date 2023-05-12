@@ -19,6 +19,10 @@ const Navbar = () => {
     const handleClick = ()=>{
         dispatch(togglePopup());
     }
+    const handleClick_1 = ()=>{
+        dispatch(togglePopup());
+        toggleMenu();
+    }
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -73,18 +77,13 @@ const Navbar = () => {
                                     <a className="hover:text-gray-300">
                                         <FaSearch size={20} onClick={handleClick}/>
                                     </a>
-                                    {/*{showSearchPopup && (*/}
-                                    {/*    <div className="absolute top-16 right-0 bg-gray-950 shadow-sm shadow-gray-800 rounded-md z-10 p-4">*/}
-                                    {/*        hey bro*/}
-                                    {/*    </div>*/}
-                                    {/*)}*/}
                                 </li>
                                 <li className={'relative flex flex-col justify-center'}>
                                     <div className="hover:text-gray-300 underline" onClick={() => setShowPopup(!showPopup)}>
                                         <FaUser size={20}/>
                                     </div>
                                     {showPopup && (
-                                        <div className="animate-slide-down absolute top-12 -right-8 mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-md z-10">
+                                        <div className="animate-slide-down absolute top-12 -right-8 mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-sm z-10">
                                             <Link href="/Login" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-md hover:text-white">
                                                 Login
                                             </Link>
@@ -136,7 +135,7 @@ const Navbar = () => {
                         <li className={''}>
                             <a className="flex justify-center items-center hover:text-gray-300">
                                 <div className={'flex'}>
-                                    Search by keywords <FaSearch className={'ml-2'} size={24} onClick={() => setShowPopup(!showPopup)}/>
+                                    Search by keywords <FaSearch className={'ml-2'} size={24} onClick={handleClick_1}/>
                                 </div>
                             </a>
                         </li>

@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 const Search = () => {
     const showSearchPopup = useSelector((state) => state.showSearchPopup);
     const dispatch = useDispatch();
+    const overlayRef = useRef(null);
+    const popupRef = useRef(null);
     const overlayStyle = {
         position: 'fixed',
         top: 0,
@@ -13,16 +15,6 @@ const Search = () => {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         display: showSearchPopup ? 'block' : 'none',
     };
-
-    const popupStyle = {
-        position: 'absolute',
-        top: '20%',
-        left: '10%',
-        padding: '2rem',
-    };
-    // const inputStyle = {
-    //     backgroundColor: 'gray'
-    // }
 
     useEffect(()=>{
         const handleKeyDown = (event)=>{
@@ -34,12 +26,28 @@ const Search = () => {
         return ()=>{
             document.removeEventListener('keydown', handleKeyDown);
         }
-    }, [showSearchPopup, dispatch])
+    }, [showSearchPopup, dispatch]);
+    useEffect(() => {
+        const handleClick = (event) => {
+            if (
+                showSearchPopup &&
+                overlayRef.current &&
+                popupRef.current &&
+                !overlayRef.current.contains(event.target) &&
+                !popupRef.current.contains(event.target)
+            ) {
+                dispatch({ type: 'TOGGLE_POPUP' });
+            }
+        };
+        window.addEventListener('click', handleClick);
+        return () => {
+            window.removeEventListener('click', handleClick);
+        };
+    }, [showSearchPopup, dispatch]);
     return (
         <div style={overlayStyle} className={'z-10'}>
-            <div style={popupStyle} className="rounded-lg animate-slide-down absolute top-10 w-[80%] h-[60%] mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-md ">
-                <h1 className="text-2xl font-bold mb-4">Search the artworks, artist by name</h1>
-                <input type={'text'} placeholder={'Type something!'} className={'bg-gray-950 focus:border-none focus:outline-none p-5 text-xl'}/>
+            <div className="absolute top-[10%] left-[10%] md:top-[20%] p-[1rem] md:p-[2rem] rounded-sm animate-slide-down absolute top-10 w-[80%] h-[60%] mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-md ">
+                <textarea type={'text'} placeholder={'Search artists, artworks by there name!'} className={'resize-none p-1 text-md w-full bg-gray-950 focus:border-none focus:outline-none md:p-5 md:text-xl'}/>
             </div>
         </div>
     );
