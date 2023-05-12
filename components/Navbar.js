@@ -3,15 +3,22 @@ import {FaBars, FaSearch, FaShoppingCart, FaTimes, FaUser} from 'react-icons/fa'
 import Image from "next/image";
 import logo from '../images/logo1.png'
 import Link from "next/link";
+import {useDispatch} from "react-redux";
+import {togglePopup} from "@/redux/actions";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const prevScrollY = useRef(0);
     const [showPopup, setShowPopup] = useState(false);
+    const [showSearchPopup, setShowSearchPopup] = useState(false);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+    const dispatch = useDispatch();
+    const handleClick = ()=>{
+        dispatch(togglePopup());
+    }
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -64,8 +71,13 @@ const Navbar = () => {
                                 </li>
                                 <li className={'flex flex-col justify-center'}>
                                     <a className="hover:text-gray-300">
-                                        <FaSearch size={20}/>
+                                        <FaSearch size={20} onClick={handleClick}/>
                                     </a>
+                                    {/*{showSearchPopup && (*/}
+                                    {/*    <div className="absolute top-16 right-0 bg-gray-950 shadow-sm shadow-gray-800 rounded-md z-10 p-4">*/}
+                                    {/*        hey bro*/}
+                                    {/*    </div>*/}
+                                    {/*)}*/}
                                 </li>
                                 <li className={'relative flex flex-col justify-center'}>
                                     <div className="hover:text-gray-300 underline" onClick={() => setShowPopup(!showPopup)}>
@@ -124,7 +136,7 @@ const Navbar = () => {
                         <li className={''}>
                             <a className="flex justify-center items-center hover:text-gray-300">
                                 <div className={'flex'}>
-                                    Search by keywords <FaSearch className={'ml-2'} size={24}/>
+                                    Search by keywords <FaSearch className={'ml-2'} size={24} onClick={() => setShowPopup(!showPopup)}/>
                                 </div>
                             </a>
                         </li>
