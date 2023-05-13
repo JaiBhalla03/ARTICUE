@@ -4,13 +4,9 @@ import { Inter } from 'next/font/google'
 import Hero from '../components/Hero'
 import Search from '../components/Search'
 import Features from '../components/Features'
-import PopupContext from "@/contexts/popupContext";
-import {useContext} from "react";
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-    const {showSearchPopup} = useContext(PopupContext);
-    console.log(showSearchPopup)
   return (
     <>
       <Head>

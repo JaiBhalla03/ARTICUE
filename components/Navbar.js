@@ -5,6 +5,7 @@ import logo from '../images/logo1.png'
 import Link from "next/link";
 import {useDispatch} from "react-redux";
 import {togglePopup} from "@/redux/actions";
+import {useSession} from "next-auth/react";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +37,19 @@ const Navbar = () => {
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+    useEffect(()=>{
+        const handleKeyDown = (event)=>{
+            if(event.keyCode === 27 && showPopup){
+                setShowPopup(false);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return ()=>{
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+    }, [showPopup]);
+    const {data, status} = useSession()
+    console.log(status, data)
 
     return (
         <nav className={`z-20 bg-gray-950 text-white border-b-[1px] border-b-grey-200 transition-all duration-700 transition-all ${
@@ -84,15 +98,25 @@ const Navbar = () => {
                                     </div>
                                     {showPopup && (
                                         <div className="animate-slide-down absolute top-12 -right-8 mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-sm z-10">
-                                            <Link href="/Login" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-md hover:text-white">
-                                                Login
-                                            </Link>
-                                            <Link href="#" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-md hover:text-white">
-                                                Sign up
-                                            </Link>
+                                            <div onClick={()=>setShowPopup(false)}>
+                                                <Link href="/Login" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-sm hover:text-white">
+                                                    Login
+                                                </Link>
+                                            </div>
+                                            <div onClick={()=>setShowPopup(false)}>
+                                                <Link href="/Register" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-sm hover:text-white">
+                                                    Register
+                                                </Link>
+                                            </div>
                                         </div>
                                     )}
                                 </li>
+                                {
+                                    status === 'authenticated' && data !== null &&(
+                                        <>
+                                        <h2>{data?.user?.username}</h2>
+                                        </>
+                                    )}
                             </ul>
                         </ul>
                     </div>
@@ -150,8 +174,8 @@ const Navbar = () => {
                                     <Link href="/Login" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-md hover:text-white">
                                         Login
                                     </Link>
-                                    <Link href="#" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-md hover:text-white">
-                                        Sign up
+                                    <Link href="/Register" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-md hover:text-white">
+                                        Register
                                     </Link>
                                 </div>
                             )}
