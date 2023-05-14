@@ -4,7 +4,11 @@ import { Inter } from 'next/font/google'
 import Hero from '../components/Hero'
 import Search from '../components/Search'
 import Features from '../components/Features'
+import FeaturedArtists from '../components/FeaturedArtists'
+import Add from '../components/Add'
+import GoToTopButton from '../components/GoToTopButton'
 const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
   return (
@@ -15,10 +19,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={'scroll-smooth'}>
           <Hero/>
           <Search/>
           <Features/>
+          <FeaturedArtists/>
+          <Add id={'add'}/>
+          <div className="fixed bottom-4 right-4 z-30">
+              <GoToTopButton/>
+          </div>
       </main>
     </>
   )

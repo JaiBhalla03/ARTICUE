@@ -6,7 +6,7 @@ import Link from "next/link";
 const Footer = () => {
     return (
         <>
-            <Fade delay={250}>
+            <Fade delay={250} className={'z-0'}>
                 <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
                     <div className="max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm">
                         <div className="p-5">

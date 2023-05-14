@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
       <SessionProvider>
           <Provider store={store}>
-              <div className={'bg-gray-950 text-white'}>
+              <div className={'scroll-smooth bg-gray-950 text-white'}>
                   <Navbar/>
                   <Component {...pageProps} />
                   <Footer/>

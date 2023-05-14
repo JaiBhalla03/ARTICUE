@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import logo from "@/images/logo1.png";
 import Image from "next/image";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import art1 from '../images/art1.jpg'
 import art2 from '../images/art2.jpg'
 import art3 from '../images/art3.jpeg'
 
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from "react-icons/ai";
+import Link from "next/link";
 
 const Hero = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,7 +20,7 @@ const Hero = () => {
         setCurrentSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1);
     };
     return (
-        <div className={'flex flex-col px-4 md:h-[100vh] sm:px-16 md:px-24 md:flex-row lg:px-28 bg-gray-950'}>
+        <div className={'smooth-scroll flex flex-col px-4 md:h-[100vh] sm:px-16 md:px-24 md:flex-row lg:px-28 bg-gray-950'}>
             <div className={'flex flex-col gap-5 sm:gap-14'}>
                 <div className={'pt-6 sm:pt-20'}>
                     <div className={'flex flex-col sm:flex-row'}>
@@ -40,7 +38,7 @@ const Hero = () => {
                     </h1>
                 </div>
                 <div>
-                    <button className={'text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90'}>Get Started!</button>
+                    <Link href={'#add'} className={'text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90'}>Get Started!</Link>
                 </div>
                 <ul className={'flex flex-col sm:flex-row justify-between p-2 shadow-sm shadow-gray-800 rounded-sm'}>
                     <li className={'flex justify-around border-b-[1px] border-gray-900 sm:border-none'}>
@@ -59,18 +57,18 @@ const Hero = () => {
             </div>
             <div className="h-[45vh] sm:h-[90vh] relative mt-5 shadow-sm shadow-gray-800 md:ml-5 rounded-sm w-full">
                 <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                    <div className="w-[80%] h-[40vh] sm:h-[80vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] overflow-hidden rounded-md">
+                    <div className="w-[80%] h-[40vh] sm:h-[80vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] overflow-hidden rounded-sm">
                         <Image
                             src={slides[currentSlide]}
                             alt="Artwork"
-                            className="rounded-md hover:scale-110 duration-500 transition-all"
+                            className="rounded-sm hover:scale-110 duration-500 transition-all"
                         />
                     </div>
                 </div>
                 <div className="absolute z-10 right-4 sm:right-6 top-1/2 transform -translate-y-1/2">
                     <button
                         onClick={prevSlide}
-                        className="text-white p-2 sm:p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
+                        className="text-white p-2 sm:p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"
                     >
                         <AiOutlineArrowRight/>
                     </button>
@@ -78,7 +76,7 @@ const Hero = () => {
                 <div className="absolute z-10 left-4 sm:left-6 top-1/2 transform -translate-y-1/2">
                     <button
                         onClick={nextSlide}
-                        className="text-white p-2 sm:p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
+                        className="text-white p-2 sm:p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"
                     >
                         <AiOutlineArrowLeft/>
                     </button>
