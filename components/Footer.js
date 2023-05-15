@@ -119,7 +119,7 @@ const Footer = () => {
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div className="bg-gray-950 rounded-lg py-6 px-12 shadow-sm shadow-gray-800">
                         <h2 className="text-xl font-bold mb-4">Form Submitted Successfully</h2>
-                        <p>Your message has been submitted. Thank you!😁</p>
+                        <p>Your message has been submitted. Thank you!😊</p>
                         <div className={'flex justify-end'}>
                             <button
                                 className="text-white p-2 mt-2 text-lg transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"
