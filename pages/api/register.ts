@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../../prisma/lib/client'
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
 import {v4 as uuid} from 'uuid'
 
 const allowedType = ['Oil Painters', 'Watercolor Painters', 'Acrylic Painters', 'Pastel Painters', 'Encaustic Painters'];
 
-const prisma = new PrismaClient();
 
 export default async function registerUser(
     req: NextApiRequest,

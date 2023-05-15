@@ -24,7 +24,10 @@ export default function Home() {
           <Search/>
           <Features/>
           <FeaturedArtists/>
-          <Add id={'add'}/>
+          <div id={'add'}>
+              <Add/>
+          </div>
+
           <div className="fixed bottom-4 right-4 z-30">
               <GoToTopButton/>
           </div>
