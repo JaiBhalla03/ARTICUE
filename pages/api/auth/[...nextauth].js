@@ -1,18 +1,11 @@
 import NextAuth from "next-auth";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import {PrismaClient} from '@prisma/client';
+import {prisma} from '../../../prisma/lib/client';
 import CredentialsProvider from "next-auth/providers/credentials";
-import {z} from "zod";
 import bcrypt from "bcryptjs";
 
-const loginUserSchema = z.object({
-    username: z.string().regex(/^[a-z0-9_-]{3,15}$/g,'Invalid username'),
-    password: z.string().min(5, 'Password should be minimum 5 characters'),
-})
 
-const prisma = new PrismaClient();
-
-const authOptions = {
+export const authOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider(
@@ -22,7 +15,7 @@ const authOptions = {
                     password: {type: 'password', placeholder: 'pa$$word'}
                 },
                 async authorize(credentials, req){
-                    const {username, password} = loginUserSchema.parse(credentials);
+                    const {username, password} = credentials;
                     const user = await prisma.user.findUnique({
                         where: {username},
                     });

@@ -8,9 +8,12 @@ import {AiOutlineClose} from "react-icons/ai";
 const RegisterPopup = ({ handleClose }) => {
     // Define the state variable to track the visibility of the popup
     const [showPopup, setShowPopup] = useState(true);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [artworks, setArtworks] = useState(null);
+    const [name, setName] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [cpassword, setCpassword] = useState(null);
+    const [type, setType] = useState(null);
+    const [about, setAbout] = useState(null);
 
     // Define a function to close the popup
     const closePopup = () => {
@@ -20,9 +23,8 @@ const RegisterPopup = ({ handleClose }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Save the artist's data and artwork using an API call
-        // Then close the popup
-        closePopup();
+        console.log({name, username, password, cpassword, type, about});
+        // closePopup();
     };
 
 
@@ -59,33 +61,43 @@ const RegisterPopup = ({ handleClose }) => {
                             {/*<Image src={poster} alt={''} width={600}/>*/}
                             <form className={'flex flex-col w-full p-4'} onSubmit={handleSubmit}>
                                 <input
-                                    className=" bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
+                                    className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                     id="name"
                                     type="text"
+                                    value={name}
+                                    onChange={(e)=>setName(e.target.value)}
                                     placeholder="Enter your full name"
                                 />
                                 <input
                                     className=" bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                     id="username"
                                     type="text"
+                                    value={username}
+                                    onChange={(e)=>setUsername(e.target.value)}
                                     placeholder="Create a username"
                                 />
                                 <input
                                     className=" bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                     id="password"
                                     type="password"
+                                    value={password}
+                                    onChange={(e)=>setPassword(e.target.value)}
                                     placeholder="Create a password"
                                 />
                                 <input
                                     className=" bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                     id="cpassword"
                                     type="password"
+                                    value={cpassword}
+                                    onChange={(e)=>setCpassword(e.target.value)}
                                     placeholder="Confirm your password"
                                 />
                                 <div class="relative">
                                     <select
                                         id={'type'}
                                         className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
+                                        value={type}
+                                        onChange={(e)=>setType(e.target.value)}
                                     >
                                         <option value="" disabled selected>Select your painting type</option>
                                         <option>Oil Painters</option>
@@ -103,7 +115,10 @@ const RegisterPopup = ({ handleClose }) => {
                                         </svg>
                                     </div>
                                 </div>
-                                <textarea className={'resize-none bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full'} placeholder={'Who are you?'}></textarea>
+                                <textarea
+                                    value={about}
+                                    onChange={(e)=>setAbout(e.target.value)}
+                                    className={'resize-none bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full'} placeholder={'Who are you?'}></textarea>
                                 <div className="mt-4 flex items-center justify-center">
                                     <button
                                         className="text-white p-2 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"

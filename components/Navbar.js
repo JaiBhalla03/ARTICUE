@@ -7,12 +7,11 @@ import {useDispatch} from "react-redux";
 import {togglePopup} from "@/redux/actions";
 import {useSession} from "next-auth/react";
 
-const Navbar = () => {
+function Navbar(){
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const prevScrollY = useRef(0);
     const [showPopup, setShowPopup] = useState(false);
-    const [showSearchPopup, setShowSearchPopup] = useState(false);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -66,19 +65,19 @@ const Navbar = () => {
                         <ul className="flex justify-between space-x-10 text-xl">
                             <ul className="mx-14 flex space-x-10 text-xl">
                                 <li>
-                                    <a href="/" className="hover:text-gray-300">
+                                    <Link href="/Artworks" className="hover:text-gray-300">
                                         Artworks
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="/about" className="hover:text-gray-300">
+                                    <Link href="/Artists" className="hover:text-gray-300">
                                         Artist
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="/services" className="hover:text-gray-300">
+                                    <Link href="/" className="hover:text-gray-300">
                                         About
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                             <ul className="flex space-x-10 text-xl">
@@ -135,19 +134,19 @@ const Navbar = () => {
                 <div className="md:hidden text-xl">
                     <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-16 left-0 w-full bg-gray-950">
                         <li className="text-center">
-                            <a href="/" className="hover:text-gray-300">
+                            <Link href="/Artworks" className="hover:text-gray-300">
                                 Artworks
-                            </a>
+                            </Link>
                         </li>
                         <li className="text-center">
-                            <a href="/about" className="hover:text-gray-300">
+                            <Link href="/Artists" className="hover:text-gray-300">
                                 Artist
-                            </a>
+                            </Link>
                         </li>
                         <li className="text-center">
-                            <a href="/services" className="hover:text-gray-300">
+                            <Link href="/" className="hover:text-gray-300">
                                 About
-                            </a>
+                            </Link>
                         </li>
                         <li className={''}>
                             <a className="flex justify-center items-center hover:text-gray-300">
