@@ -41,7 +41,6 @@ const Footer = () => {
                                 <div className="md:w-[30%] md:px-4">
                                     <h2 className="uppercase mb-4 font-bold text-xl">About us</h2>
                                     <p className="leading-loose text-sm">
-                                        Sure, here's an "About Us" text for Articue:
                                         Articue is a community-driven art platform that showcases and promotes emerging artists from around the world.
                                         Our mission is to democratize the art world by providing a platform for artists to connect with art enthusiasts,
                                         collectors, and buyers. We believe that art has the power to enrich lives, evoke emotions, and create meaningful
@@ -53,8 +52,9 @@ const Footer = () => {
                                     <h2 className="uppercase mb-4 font-bold text-xl">Quick links</h2>
                                     <ul className="leading-loose">
                                         <li><Link href="/" className={'underline'}>Home</Link></li>
-                                        <li><Link href="#" className={'underline'}>Artist</Link></li>
-                                        <li><Link href="#" className={'underline'}>Artworks</Link></li>
+                                        <li><Link href="/Artists" className={'underline'}>Artist</Link></li>
+                                        <li><Link href="/Artworks" className={'underline'}>Artworks</Link></li>
+                                        <li><Link href="/About" className={'underline'}>About</Link></li>
                                     </ul>
                                 </div>
                                 <div className="md:w-[20%] md:px-4">

@@ -75,7 +75,7 @@ function Navbar(){
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/" className="hover:text-gray-300">
+                                    <Link href="/About" className="hover:text-gray-300">
                                         About
                                     </Link>
                                 </li>
@@ -144,7 +144,7 @@ function Navbar(){
                             </Link>
                         </li>
                         <li className="text-center">
-                            <Link href="/" className="hover:text-gray-300">
+                            <Link href="/About" className="hover:text-gray-300">
                                 About
                             </Link>
                         </li>

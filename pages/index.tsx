@@ -5,6 +5,7 @@ import Hero from '../components/Hero'
 import Search from '../components/Search'
 import Features from '../components/Features'
 import FeaturedArtists from '../components/FeaturedArtists'
+import ForYou from '../components/ForYou'
 import Add from '../components/Add'
 import GoToTopButton from '../components/GoToTopButton'
 const inter = Inter({ subsets: ['latin'] })
@@ -24,10 +25,11 @@ export default function Home() {
           <Search/>
           <Features/>
           <FeaturedArtists/>
+
+          <ForYou/>
           <div id={'add'}>
               <Add/>
           </div>
-
           <div className="fixed bottom-4 right-4 z-30">
               <GoToTopButton/>
           </div>

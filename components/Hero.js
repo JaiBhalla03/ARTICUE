@@ -7,6 +7,7 @@ import art3 from '../images/art3.jpeg'
 
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from "react-icons/ai";
 import Link from "next/link";
+import {Bounce} from "react-awesome-reveal";
 
 const Hero = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,12 +27,13 @@ const Hero = () => {
                     <div className={'flex flex-col sm:flex-row'}>
                         <h1 className={'text-5xl font-light sm:mt-5 flex'}>
                             Welcome to</h1>
-                        <Image
-                            src={logo}
-                            alt=""
-                            className="ml-32 sm:ml-0 w-52 h-20 sm:w-64 sm:h-24"
-                        />
-
+                        <Bounce triggerOnce>
+                            <Image
+                                src={logo}
+                                alt=""
+                                className="ml-32 sm:ml-0 w-52 h-20 sm:w-64 sm:h-24"
+                            />
+                        </Bounce>
                     </div>
                     <h1 className={'text-lg sm:text-xl'}>
                         the premier online marketplace for art enthusiasts seeking exceptional and affordable works of art.
