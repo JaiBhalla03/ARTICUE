@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import {useSpring, animated} from 'react-spring';
+import {Fade} from 'react-awesome-reveal';
 import Link from "next/link";
 import axios from "axios";
 
@@ -30,15 +30,10 @@ const Footer = () => {
             console.error(error);
         }
     };
-    const fadeAnimation = useSpring({
-        opacity: 1,
-        from: {opacity:0},
-        config: {duration: 1000},
-    });
 
     return (
         <>
-            <animated.div style={fadeAnimation} className={'z-0'}>
+            <Fade delay={250} className={'z-0'}>
                 <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
                     <div className="max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm">
                         <div className="p-5">
@@ -114,7 +109,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-            </animated.div>
+            </Fade>
             <div>
                 <p className="text-center text-base leading-6 text-gray-400">
                     &copy; 2023 Articue, Inc. All rights reserved.
@@ -124,7 +119,7 @@ const Footer = () => {
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div className="bg-gray-950 rounded-lg py-6 px-12 shadow-sm shadow-gray-800">
                         <h2 className="text-xl font-bold mb-4">Form Submitted Successfully</h2>
-                        <p>Your message has been submitted. Thank you!😊</p>
+                        <p>Your message has been submitted. Thank you!😁</p>
                         <div className={'flex justify-end'}>
                             <button
                                 className="text-white p-2 mt-2 text-lg transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"

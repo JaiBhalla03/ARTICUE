@@ -3,6 +3,7 @@ import React, {FormEvent, useState} from 'react';
 import { signIn } from 'next-auth/react';
 import Image from "next/image";
 import img from '../images/regimg.png'
+import {Bounce} from "react-awesome-reveal";
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -32,7 +33,7 @@ export default function Register() {
     }
 
     return (
-
+        <Bounce triggerOnce>
             <div className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:pt-20'}>
                 <div className='flex justify-around relative shadow-gray-800 shadow-sm py-8 px-6'>
                     <div className={'flex flex-col justify-around justify-between'}>
@@ -83,5 +84,6 @@ export default function Register() {
                     <Image src={img} alt={''} width={450}/>
                 </div>
             </div>
+        </Bounce>
     );
 }
