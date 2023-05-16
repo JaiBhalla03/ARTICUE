@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import {Fade} from 'react-reveal';
+import {useSpring, animated} from 'react-spring';
 import Link from "next/link";
 import axios from "axios";
 
@@ -30,10 +30,15 @@ const Footer = () => {
             console.error(error);
         }
     };
+    const fadeAnimation = useSpring({
+        opacity: 1,
+        from: {opacity:0},
+        config: {duration: 1000},
+    });
 
     return (
         <>
-            <Fade delay={250} className={'z-0'}>
+            <animated.div style={fadeAnimation} className={'z-0'}>
                 <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
                     <div className="max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm">
                         <div className="p-5">
@@ -109,7 +114,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-            </Fade>
+            </animated.div>
             <div>
                 <p className="text-center text-base leading-6 text-gray-400">
                     &copy; 2023 Articue, Inc. All rights reserved.
