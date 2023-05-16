@@ -72,7 +72,7 @@ const FeaturedArtistSlider = ({ slides, name }) => {
         </div>
     );
 };
-const ForYou = ({name}) => {
+const ForYou = () => {
     const slides = [
         <FeaturedArtistCard />,
         <FeaturedArtistCard />,
@@ -90,7 +90,7 @@ const ForYou = ({name}) => {
                 <h1 className={'mx-8 md:mx-28 flex text-3xl md:text-5xl font-bold'}>Picks for you <FaPaintBrush className={'text-white mx-2'} size={40}/></h1>
             </Bounce>
             <Fade delay={500}>
-                <FeaturedArtistSlider slides={slides} name={name}/>
+                <FeaturedArtistSlider slides={slides}/>
             </Fade>
         </>
     );

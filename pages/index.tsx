@@ -25,7 +25,6 @@ export default function Home() {
           <Search/>
           <Features/>
           <FeaturedArtists/>
-
           <ForYou/>
           <div id={'add'}>
               <Add/>
