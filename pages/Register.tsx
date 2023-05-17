@@ -63,8 +63,7 @@ export default function Register() {
                                 >
                                     <option value="" disabled selected>Select your favorite painting type</option>
                                     <option>Oil Painters</option>
-                                    <option>Watercolor Painters</option>
-                                    <option>Acrylic Painters</option>
+                                    <option>Watercolor Painters</option><option>Acrylic Painters</option>
                                     <option>Pastel Painters</option>
                                     <option>Encaustic Painters</option>
                                 </select>

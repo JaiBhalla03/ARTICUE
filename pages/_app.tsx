@@ -6,6 +6,7 @@ import '@/styles/globals.css'
 import store from "../redux/store";
 import {Provider} from "react-redux";
 import {SessionProvider} from "next-auth/react";
+import Search from "@/components/Search";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <div className={'scroll-smooth bg-gray-950 text-white'}>
                   <Navbar/>
                   <Component {...pageProps} />
+                  <Search/>
                   <Footer/>
               </div>
           </Provider>

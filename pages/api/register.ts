@@ -43,7 +43,6 @@ export default async function registerUser(
 
     const sessionToken = uuid();
     const sessionExpires = new Date(Date.now() + 30*24*60*60*1000);
-
     const newSession = await prisma.session.create({
         data:{
             sessionToken,
@@ -62,3 +61,5 @@ export default async function registerUser(
 
     return res.send({ user: newUser, session: newSession, account:newAccount, message: 'User created successfully' });
 }
+
+

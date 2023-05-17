@@ -22,7 +22,7 @@ export default function Home() {
       </Head>
       <main className={'scroll-smooth'}>
           <Hero/>
-          <Search/>
+          {/*<Search/>*/}
           <Features/>
           <FeaturedArtists/>
           <ForYou/>
