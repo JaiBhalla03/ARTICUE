@@ -5,9 +5,13 @@ import logo from '../images/logo1.png'
 import Link from "next/link";
 import {useDispatch} from "react-redux";
 import {togglePopup} from "@/redux/actions";
-import {useSession} from "next-auth/react";
+import {signIn, signOut, useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
-function Navbar(){
+export default function Navbar(){
+    const router = useRouter();
+    const {data ,status} = useSession();
+    console.log({data, status});
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const prevScrollY = useRef(0);
@@ -23,6 +27,10 @@ function Navbar(){
         dispatch(togglePopup());
         toggleMenu();
     }
+    const handleSignIn = async () => {
+        await signIn();
+        await router.push('/details');
+    };
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -47,8 +55,6 @@ function Navbar(){
             document.removeEventListener('keydown', handleKeyDown);
         }
     }, [showPopup]);
-    const {data, status} = useSession()
-    console.log(status, data)
 
     return (
         <nav className={`z-20 bg-gray-950 text-white border-b-[1px] border-b-grey-200 transition-all duration-700 transition-all ${
@@ -64,17 +70,17 @@ function Navbar(){
                     <div className="hidden md:block w-full">
                         <ul className="flex justify-between space-x-10 text-xl">
                             <ul className="mx-14 flex space-x-10 text-xl">
-                                <li>
+                                <li className={'flex items-center'}>
                                     <Link href="/Artworks" className="hover:text-gray-300">
                                         Artworks
                                     </Link>
                                 </li>
-                                <li>
+                                <li className={'flex items-center'}>
                                     <Link href="/Artists" className="hover:text-gray-300">
                                         Artist
                                     </Link>
                                 </li>
-                                <li>
+                                <li className={'flex items-center'}>
                                     <Link href="/About" className="hover:text-gray-300">
                                         About
                                     </Link>
@@ -91,31 +97,14 @@ function Navbar(){
                                         <FaSearch size={20} onClick={handleClick}/>
                                     </a>
                                 </li>
-                                <li className={'relative flex flex-col justify-center'}>
-                                    <div className="hover:text-gray-300 underline" onClick={() => setShowPopup(!showPopup)}>
-                                        <FaUser size={20}/>
+                                <li className={'relative flex flex-col justify-center items-center'}>
+                                    <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
+                                        {data ?
+                                            <button onClick={()=>signOut()} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
+                                                <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
+                                            </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
                                     </div>
-                                    {showPopup && (
-                                        <div className="animate-slide-down absolute top-12 -right-8 mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-sm z-10">
-                                            <div onClick={()=>setShowPopup(false)}>
-                                                <Link href="/Login" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-sm hover:text-white">
-                                                    Login
-                                                </Link>
-                                            </div>
-                                            <div onClick={()=>setShowPopup(false)}>
-                                                <Link href="/Register" className="text-lg block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-sm hover:text-white">
-                                                    Register
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    )}
                                 </li>
-                                {
-                                    status === 'authenticated' && data !== null &&(
-                                        <>
-                                        <h2>{data?.user?.username}</h2>
-                                        </>
-                                    )}
                             </ul>
                         </ul>
                     </div>
@@ -186,4 +175,3 @@ function Navbar(){
     );
 };
 
-export default Navbar;

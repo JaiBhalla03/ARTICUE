@@ -1,49 +1,38 @@
-import NextAuth from "next-auth";
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import {prisma} from '../../../prisma/lib/client';
-import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
+import NextAuth from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import GitHubProvider from 'next-auth/providers/github';
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from '../../../prisma/lib/client';
+
+// export const authOptions = {
+//     secret: process.env.AUTH_SECRET,
+//     adapter: PrismaAdapter(prisma),
+//     providers: [
+//         GoogleProvider({
+//             clientId: process.env.GOOGLE_CLIENT_ID,
+//             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//         }),
+//         GitHubProvider({
+//             clientId: process.env.GITHUB_CLIENT_ID,
+//             clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//         }),
+//     ],
+// };
+//
+// export default NextAuth(authOptions);
 
 
-export const authOptions = {
+export default NextAuth({
+    secret: process.env.AUTH_SECRET,
     adapter: PrismaAdapter(prisma),
     providers: [
-        CredentialsProvider(
-            {
-                credentials:{
-                    username: {type: 'text', placeholder: 'test@test.com'},
-                    password: {type: 'password', placeholder: 'pa$$word'}
-                },
-                async authorize(credentials, req){
-                    const {username, password} = credentials;
-                    const user = await prisma.user.findUnique({
-                        where: {username},
-                    });
-                    if(!user) {
-                        return null;
-                    }
-                    const isPasswordValid = await bcrypt.compare(password, user.password)
-                    if(!isPasswordValid) return null;
-                    return user;
-                },
-            }
-        )
-    ],
-    callbacks:{
-        session({session, token}){
-            session.user.id = token.id;
-            session.user.username = token.username;
-            return session;
-        },
-        jwt({token, account, user}){
-            if(account){
-                token.accessToken = account.access_token;
-                token.id = user.id;
-                token.username = user.username;
-            }
-            return token;
-        }
-    }
-}
-
-export default NextAuth(authOptions);
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        }),
+    ]
+})

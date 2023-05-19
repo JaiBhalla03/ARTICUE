@@ -8,6 +8,7 @@ import FeaturedArtists from '../components/FeaturedArtists'
 import ForYou from '../components/ForYou'
 import Add from '../components/Add'
 import GoToTopButton from '../components/GoToTopButton'
+
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -22,7 +23,6 @@ export default function Home() {
       </Head>
       <main className={'scroll-smooth'}>
           <Hero/>
-          {/*<Search/>*/}
           <Features/>
           <FeaturedArtists/>
           <ForYou/>
