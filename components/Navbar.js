@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {FaBars, FaSearch, FaShoppingCart, FaTimes, FaUser} from 'react-icons/fa';
 import Image from "next/image";
 import logo from '../images/logo1.png'
@@ -16,6 +16,7 @@ export default function Navbar(){
     const [isScrolled, setIsScrolled] = useState(false);
     const prevScrollY = useRef(0);
     const [showPopup, setShowPopup] = useState(false);
+    const [isOpenDetails, setIsOpenDetails] = useState(false);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -55,6 +56,10 @@ export default function Navbar(){
             document.removeEventListener('keydown', handleKeyDown);
         }
     }, [showPopup]);
+
+    const toggleDropdownDetails = () => {
+        setIsOpenDetails(!isOpenDetails);
+    };
 
     return (
         <nav className={`z-20 bg-gray-950 text-white border-b-[1px] border-b-grey-200 transition-all duration-700 transition-all ${
@@ -100,8 +105,35 @@ export default function Navbar(){
                                 <li className={'relative flex flex-col justify-center items-center'}>
                                     <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                         {data ?
-                                            <button onClick={()=>signOut()} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
-                                                <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
+                                            <button onClick={toggleDropdownDetails} className={'p-1 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
+                                                <div>
+                                                    <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
+                                                    {isOpenDetails && (
+                                                        <div
+                                                            id="dropdownDelay"
+                                                            className="absolute right-0 z-10 mt-4 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
+                                                        >
+                                                            <ul className="my-2" aria-labelledby="dropdownDelayButton">
+                                                                <li className={'text-lg'}>
+                                                                    <Link href="/dashboard" className="block px-3 py-1 hover:bg-gray-900">
+                                                                        Dashboard
+                                                                    </Link>
+                                                                </li>
+                                                                <li className={'text-lg'}>
+                                                                    <Link href="/details" className="block px-3 py-1 hover:bg-gray-900">
+                                                                        Update details
+                                                                    </Link>
+                                                                </li>
+                                                                <li className={'border-t-[1px] flex justify-center border-gray-800 text-lg hover:bg-gray-900'}>
+                                                                    <button onClick={()=>signOut()} className="block px-3 py-1">
+                                                                        LogOut
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                                </div>
+
                                             </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
                                     </div>
                                 </li>
@@ -151,22 +183,16 @@ export default function Navbar(){
                                 </div>
                             </a>
                         </li>
-                        <li className={'relative'}>
-                            <div className="flex justify-center items-center hover:text-gray-300" onClick={() => setShowPopup(!showPopup)}>
-                                <div className={'flex'}>
-                                    Login/SignUp<FaUser className={'ml-2'} size={24}/>
-                                </div>
+                        <li className={'relative flex flex-col justify-center items-center'}>
+                            <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
+                                {data ?
+                                    <button onClick={toggle} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
+                                        <div>
+                                            <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
+
+                                        </div>
+                                    </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
                             </div>
-                            {showPopup && (
-                                <div className="animate-slide-down absolute top-10 w-full mt-2 w-32 bg-gray-950 shadow-sm shadow-gray-800 rounded-md z-10">
-                                    <Link href="/Login" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-t-md hover:text-white">
-                                        Login
-                                    </Link>
-                                    <Link href="/Register" className="text-lg text-center block px-3 py-1 text-white hover:bg-gray-900 transition-all duration-300 rounded-b-md hover:text-white">
-                                        Register
-                                    </Link>
-                                </div>
-                            )}
                         </li>
                     </ul>
                 </div>
