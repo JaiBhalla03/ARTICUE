@@ -1,33 +1,36 @@
 import NextAuth from 'next-auth';
+import prisma from '../../../prisma/lib/client'
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from '../../../prisma/lib/client';
+
 
 
 async function getUser(sessionToken){
-    try{
+    try {
         const session = await prisma.session.findUnique({
-            where:{
+            where: {
                 sessionToken: sessionToken,
             },
             include: {
-                user: true,
+                user: {
+                    include: {
+                        artworks: true,
+                    },
+                },
             },
         });
-        if(session && session.user){
+
+        if (session && session.user) {
             return session.user;
-        }
-        else{
+        } else {
             return null;
         }
-    }
-    catch(error){
-        console.error('error retrieving user: ', error);
+    } catch (error) {
+        console.error('Error retrieving user:', error);
         return null;
     }
 }
-
 
 export default NextAuth({
     secret: process.env.AUTH_SECRET,
@@ -43,21 +46,12 @@ export default NextAuth({
         }),
     ],
     callbacks: {
-        /**
-         * @param  {object} session      Session object
-         * @param  {object} token        User object    (if using database sessions)
-         *                               JSON Web Token (if not using database sessions)
-         * @return {object}              Session that will be returned to the client
-         */
-        async session(session) {
-            // Add property to session, like an access_token from a provider.
-            const user = await getUser(session.sessionToken);
-            if(user){
-                session.user.fullName = user.fullName;
-                session.user.address = user.address;
-                session.user.phoneNumber = user.phoneNumber;
+        async session(session, user){
+            const fullUser = await getUser(session.sessionToken);
+            if(fullUser){
+                session.user = fullUser;
             }
-            return session
-        }
-    }
+            return session;
+        },
+    },
 });

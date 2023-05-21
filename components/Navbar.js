@@ -107,7 +107,7 @@ export default function Navbar(){
                                         {data ?
                                             <button onClick={toggleDropdownDetails} className={'p-1 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
                                                 <div>
-                                                    <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
+                                                    <Image className={'rounded-sm cursor-pointer'} src={data?.user?.image} alt={''} width={35} height={35}/>
                                                     {isOpenDetails && (
                                                         <div
                                                             id="dropdownDelay"
@@ -134,7 +134,7 @@ export default function Navbar(){
                                                     )}
                                                 </div>
 
-                                            </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
+                                            </button>: <button onClick={()=>signIn( ['github','google'] ,  {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
                                     </div>
                                 </li>
                             </ul>
