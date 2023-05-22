@@ -11,7 +11,6 @@ import {useRouter} from "next/router";
 export default function Navbar(){
     const router = useRouter();
     const {data ,status} = useSession();
-    console.log({data, status});
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const prevScrollY = useRef(0);

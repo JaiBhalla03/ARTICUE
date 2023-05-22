@@ -42,8 +42,10 @@ model User {
   email              String    @unique
   emailVerified      DateTime?
   image              String?
+  userImage          String?
   role               String?
   interestType       String?
+  isFeatured         Boolean    @default(false)
   accounts           Account[]
   sessions           Session[]
   artworks           Artwork[]
