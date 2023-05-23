@@ -57,9 +57,11 @@ model Artwork {
   name               String
   imageUrl           String
   price              Float
-  discount           Float
-  likeCount          Int
+  discount           Float     @default(0.0)
+  likeCount          Int       @default(0)
+  paintingType       String?
   artistName         String
+  createdAt          DateTime  @default(now())
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

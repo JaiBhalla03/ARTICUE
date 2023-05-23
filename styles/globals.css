@@ -30,6 +30,25 @@ html{
     border-radius: 10px; /* Set the border radius of the thumb */
 }
 
+/* CSS */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #999999 #F3F4F6;
+}
 
+.custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+}
 
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgb(3,7,18);
+}
 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgb(60, 60, 65);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #888888;
+}

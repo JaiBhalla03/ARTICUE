@@ -1,19 +1,31 @@
-import prisma from '../../prisma/lib/client'
+import prisma from '../../prisma/lib/client';
 
 export default async function handler(req, res){
     if(req.method !== 'POST'){
-        return res.status(405).json({message: 'method not allowed'});
+        return res.status(405).json({error: 'Method not allowed'});
     }
-            const {userId, artwork} = req.body;
+    const {userId, name, imageUrl, price: priceString, discount: discountString, paintingType, artistName} = req.body;
+
+    const price = parseInt(priceString);
+    const discount = parseFloat(discountString);
+
+    console.log('Received data:', req.body);
     try{
-        const user = await prisma.user.update({
-            where: {id: userId},
-            data: {artworks: {push: artwork}},
+        const artwork = await prisma.artwork.create({
+            data:{
+                userId,
+                name,
+                imageUrl,
+                price,
+                discount,
+                paintingType,
+                artistName,
+            },
         });
-        res.status(200).json({message: 'artworks added successfully', user});
+        res.status(200).json({message: 'Artworks added successfully', artwork});
     }
     catch(error){
-        console.error('Error adding artwork', error);
-        res.status(500).json({message: 'internal server error'});
+        console.error(error);
+        res.status(500).json({error: 'Internal server error'});
     }
 }
