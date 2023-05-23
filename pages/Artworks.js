@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ArtWorkCard from "../components/ArtWorkCard";
 import GoToTopButton from "../components/GoToTopButton";
 import {FaPaintBrush} from "react-icons/fa";
 import {Bounce} from "react-awesome-reveal";
+import axios from "axios";
 
 const Artworks = () => {
     const [isOpenCategory, setIsOpenCategory] = useState(false);
@@ -24,6 +25,21 @@ const Artworks = () => {
         setIsOpenPrice(false);
         setIsOpenCategory(false);
     }
+    const [artData, setArtData] = useState(null);
+    useEffect(()=>{
+        const fetchArtWorks = async()=>{
+            try {
+                const res = await axios.get('/api/artworks');
+                setArtData(res.data);
+            }
+            catch(err){
+                console.error(err);
+                return null;
+            }
+        }
+        fetchArtWorks();
+    },[])
+    console.log(artData)
     return (
         <main className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20'}>
             <Bounce triggerOnce>
@@ -146,17 +162,17 @@ const Artworks = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
-                <ArtWorkCard/>
+                {
+                    artData?.map((artData1)=>(
+                        <ArtWorkCard
+                            id = {artData1.id}
+                            imageUrl={artData1.imageUrl}
+                            name={artData1.name}
+                            price={artData1.price}
+                            artistName={artData1.artistName}
+                        />
+                    ))
+                }
             </div>
             <div className="fixed bottom-4 right-4 z-30">
                 <GoToTopButton/>
