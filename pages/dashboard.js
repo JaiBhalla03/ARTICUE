@@ -9,6 +9,7 @@ import { formatDistanceToNow } from 'date-fns';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import {MdCancel, MdOutlineCancel, MdOutlineCancelPresentation} from "react-icons/md";
+import ArtworksUpdateForm from "../components/ArtworksUpdateForm";
 
 
 const Dashboard = () => {
@@ -150,6 +151,18 @@ const Dashboard = () => {
         setDeleteId(id);
     }
 
+    const [updateBox , setUpdateBox] = useState(false);
+    const [updateArtwork, setUpdateArtwork] = useState(null);
+
+    const handleEditButton = (uArtwork)=>{
+        setUpdateBox(true);
+        setUpdateArtwork(uArtwork);
+    }
+    const handleUpdateComplete = () => {
+        setUpdateBox(false);
+        // You may also want to refresh the artworks list or update the specific artwork in the state if needed.
+    };
+
     return (
         <main className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
             <div className="shadow-gray-800 shadow-sm px-2 py-2 md:px-8 md:p-8 lg:py-8 lg:px-32 flex items center justify-between flex-col-reverse md:flex-row">
@@ -282,7 +295,11 @@ const Dashboard = () => {
                                         </div>
                                         <div className={'flex justify-between'}>
                                             <div className={'flex'}>
-                                                <AiFillEdit title={'Edit'} size={'20'} className={'hover:scale-110 active:scale-90 duration-300 transition-all'}/>
+                                                <AiFillEdit
+                                                    onClick={()=>handleEditButton(artwork)}
+                                                    title={'Edit'}
+                                                    size={'20'}
+                                                    className={'hover:scale-110 active:scale-90 duration-300 transition-all'}/>
                                                 <AiFillDelete
                                                     onClick={()=>handleDeleteButton(artwork.id, artwork.name)}
                                                     title={'Delete'}
@@ -407,6 +424,11 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
+                )
+            }
+            {
+                updateBox && (
+                    <ArtworksUpdateForm artwork={updateArtwork} onUpdate={handleUpdateComplete} />
                 )
             }
         </main>

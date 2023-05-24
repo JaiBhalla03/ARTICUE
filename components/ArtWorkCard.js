@@ -13,7 +13,7 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price}) => {
                     src={imageUrl}
                     alt="Artwork"
                     width={400}
-                    height={300}
+                    height={400}
                     className="group rounded-sm group-hover:scale-110 duration-500 transition-all"
                 />
                 <div className="absolute p-4 flex flex-col inset-0 justify-between bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
