@@ -4,12 +4,20 @@ import axios from 'axios';
 import test from '../images/user.png';
 import Image from 'next/image';
 import {FaEdit} from 'react-icons/fa';
-import {AiFillDelete, AiFillEdit, AiFillHeart, AiOutlinePlus} from "react-icons/ai";
+import {
+    AiFillCrown,
+    AiFillDelete, AiFillDollarCircle,
+    AiFillEdit,
+    AiFillHeart,
+    AiOutlinePlus,
+    AiTwotoneMoneyCollect
+} from "react-icons/ai";
 import { formatDistanceToNow } from 'date-fns';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import {MdCancel, MdOutlineCancel, MdOutlineCancelPresentation} from "react-icons/md";
 import ArtworksUpdateForm from "../components/ArtworksUpdateForm";
+import OrdersDashboard from "../components/OrdersDashboard";
 
 
 const Dashboard = () => {
@@ -325,12 +333,33 @@ const Dashboard = () => {
                     }
                 </div>
             </div>
-            <div className={'shadow-gray-800 shadow-sm my-4 h-[350px]'}>
-                this will be the orders list
-            </div>
-            <div className={'shadow-gray-800 shadow-sm my-4'}>
-                some other stats
-                and ask the user to become a featured artist
+            <OrdersDashboard/>
+            <div className={'flex justify-between shadow-gray-800 shadow-sm my-4 h-16'}>
+                <div className={'flex items-center p-2 shadow-gray-800 shadow-sm m-2'}>
+                    {
+                        details ? (
+                            <p>
+                                [TOTAL LIKES]
+                            </p>
+                        ):(
+                            <p className={'bg-gray-800 rounded-sm dark:bg-gray-900 animate-pulse w-[40px]'}></p>
+                        )
+                    }
+
+                     <AiFillHeart size={25} className={'ml-2'}/>
+                </div>
+                <div className={'flex items-center p-2 shadow-gray-800 shadow-sm m-2'}>
+                    <p>
+                        [TOTAL ARTWORKS SOLD: ]
+                    </p>
+                     <AiFillDollarCircle size={25} className={'ml-2'}/>
+                </div>
+                <div className={'flex items-center group p-2 shadow-gray-800 shadow-sm m-2'}>
+                    <p>
+                        Become a featured artist
+                    </p>
+                     <AiFillCrown size={25} className={'ml-2 group-hover:text-yellow-500 group-hover:scale-110 active:scale-90 duration-300 transition-all transform'}/>
+                </div>
             </div>
             {/* Edit Modal */}
             {editModalOpen && (

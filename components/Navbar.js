@@ -81,7 +81,7 @@ export default function Navbar(){
                                 </li>
                                 <li className={'flex items-center'}>
                                     <Link href="/Artists" className="hover:text-gray-300">
-                                        Artist
+                                        Artists
                                     </Link>
                                 </li>
                                 <li className={'flex items-center'}>

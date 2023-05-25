@@ -52,7 +52,7 @@ const Footer = () => {
                                     <h2 className="uppercase mb-4 font-bold text-xl">Quick links</h2>
                                     <ul className="leading-loose">
                                         <li><Link href="/" className={'underline'}>Home</Link></li>
-                                        <li><Link href="/Artists" className={'underline'}>Artist</Link></li>
+                                        <li><Link href="/Artists/index" className={'underline'}>Artist</Link></li>
                                         <li><Link href="/Artworks" className={'underline'}>Artworks</Link></li>
                                         <li><Link href="/About" className={'underline'}>About</Link></li>
                                     </ul>

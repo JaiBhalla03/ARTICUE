@@ -25,13 +25,16 @@ const Hero = () => {
             <div className={'flex flex-col gap-5 sm:gap-14'}>
                 <div className={'pt-6 sm:pt-20'}>
                     <div className={'flex flex-col sm:flex-row'}>
-                        <h1 className={'text-5xl font-light sm:mt-5 flex'}>
-                            Welcome to</h1>
+                        <div className={'pb-2'}>
+                            <h1 className={'text-[2.9rem] font-thin sm:mt-5 flex'}>
+                                Welcome to</h1>
+                        </div>
+
                         <Bounce triggerOnce>
                             <Image
                                 src={logo}
                                 alt=""
-                                className="ml-32 sm:ml-0 w-52 h-20 sm:w-64 sm:h-24"
+                                className="ml-32 mt-1 sm:ml-0 w-48 h-16 sm:w-64 sm:h-24"
                             />
                         </Bounce>
                     </div>

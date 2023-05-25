@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import ArtWorkCard from "../components/ArtWorkCard";
-import GoToTopButton from "../components/GoToTopButton";
+import ArtWorkCard from "../../components/ArtWorkCard";
+import GoToTopButton from "../../components/GoToTopButton";
 import {FaPaintBrush} from "react-icons/fa";
 import {Bounce} from "react-awesome-reveal";
 import axios from "axios";
 
-const Artworks = () => {
+const Home = () => {
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenPrice, setIsOpenPrice] = useState(false);
     const [isOpenArtist, setIsOpenArtist] = useState(false);
@@ -61,27 +61,27 @@ const Artworks = () => {
                         >
                             <ul className="my-2" aria-labelledby="dropdownDelayButton">
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Acrylic
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Oil
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Watercolor
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Pastel
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Encaustic
                                     </a>
                                 </li>
@@ -104,12 +104,12 @@ const Artworks = () => {
                         >
                             <ul className="my-2" aria-labelledby="dropdownDelayButton">
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         High to Low
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Low to High
                                     </a>
                                 </li>
@@ -132,27 +132,27 @@ const Artworks = () => {
                         >
                             <ul className="my-2" aria-labelledby="dropdownDelayButton">
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Artist-1
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Artist-2
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Artist-3
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Artist-4
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 hover:bg-gray-900">
+                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
                                         Artist-5
                                     </a>
                                 </li>
@@ -161,19 +161,33 @@ const Artworks = () => {
                     )}
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {
-                    artData?.map((artData1)=>(
-                        <ArtWorkCard
-                            id = {artData1.id}
-                            imageUrl={artData1.imageUrl}
-                            name={artData1.name}
-                            price={artData1.price}
-                            artistName={artData1.artistName}
-                        />
-                    ))
-                }
-            </div>
+            {
+                artData?(
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {
+                            artData?.map((artData1)=>(
+                                <ArtWorkCard
+                                    id = {artData1.id}
+                                    imageUrl={artData1.imageUrl}
+                                    name={artData1.name}
+                                    price={artData1.price}
+                                    artistName={artData1.artistName}
+                                />
+                            ))
+                        }
+                    </div>
+                ):(
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className={'p-2 m-2 bg-gray-800 dark:bg-gray-900 rounded-sm animate-pulse m-3 h-[400px] w-[350px]'}></div>
+                        <div className={'p-2 m-2 bg-gray-800 dark:bg-gray-900 rounded-sm animate-pulse m-3 h-[400px] w-[350px]'}></div>
+                        <div className={'p-2 m-2 bg-gray-800 dark:bg-gray-900 rounded-sm animate-pulse m-3 h-[400px] w-[350px]'}></div>
+                        <div className={'p-2 m-2 bg-gray-800 dark:bg-gray-900 rounded-sm animate-pulse m-3 h-[400px] w-[350px]'}></div>
+                        <div className={'p-2 m-2 bg-gray-800 dark:bg-gray-900 rounded-sm animate-pulse m-3 h-[400px] w-[350px]'}></div>
+                        <div className={'p-2 m-2 bg-gray-800 dark:bg-gray-900 rounded-sm animate-pulse m-3 h-[400px] w-[350px]'}></div>
+                    </div>
+                )
+            }
+
             <div className="fixed bottom-4 right-4 z-30">
                 <GoToTopButton/>
             </div>
@@ -181,4 +195,4 @@ const Artworks = () => {
     );
 };
 
-export default Artworks;
+export default Home;
