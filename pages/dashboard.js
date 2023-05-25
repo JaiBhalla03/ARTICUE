@@ -81,7 +81,7 @@ const Dashboard = () => {
                 price: price,
                 discount: discount,
                 paintingType: paintingType,
-                artistName: details?.name
+                artistName: details?.fullName
             };
             console.log(artworkData);
             const res = await axios.post('/api/addArtworks', artworkData);

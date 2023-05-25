@@ -7,16 +7,16 @@ export default async function handler(req, res) {
         const { id } = req.query;
         console.log(id)
         try {
-            const artwork = await prisma.user.findUnique({
+            const artist = await prisma.user.findUnique({
                 where: {
                     id: id,
                 },
             });
 
-            if (artwork) {
+            if (artist) {
                 return res.status(200).json({
                     message: 'Artist details found successfully',
-                    artwork,
+                    artist,
                 });
             } else {
                 return res.status(404).json({
