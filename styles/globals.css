@@ -52,3 +52,17 @@ html{
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: #888888;
 }
+
+
+@keyframes progressAnimation {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.animate-progress {
+    animation: progressAnimation 2.5s linear infinite;
+}

@@ -18,6 +18,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import {MdCancel, MdOutlineCancel, MdOutlineCancelPresentation} from "react-icons/md";
 import ArtworksUpdateForm from "../components/ArtworksUpdateForm";
 import OrdersDashboard from "../components/OrdersDashboard";
+import BecomeFeatured from '../components/BecomeFeatured'
+import RemoveFeatured from "../components/RemoveFeatured";
 
 
 const Dashboard = () => {
@@ -31,10 +33,19 @@ const Dashboard = () => {
     const [price, setPrice] = useState('');
     const [discount, setDiscount] = useState('');
     const [paintingType, setPaintingType] = useState('');
+
+    const [memberShipForm, setMemberShipForm] = useState(false);
+    const [memberShipFormRemove, setMemberShipFormRemove] = useState(false);
     const handleAddButtonClick = () => {
         setIsFormOpen(true);
     };
-
+    const handleMemberShipForm = ()=>{
+        setMemberShipForm(true);
+    };
+    const handleRemoveMemberShipForm = ()=>{
+        setMemberShipFormRemove(true);
+    };
+    console.log(session?.user?.id)
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -51,6 +62,8 @@ const Dashboard = () => {
     const handleEditProfileImage = () => {
         setEditModalOpen(true);
     };
+
+
 
     const handleModalSubmit = async () => {
         try {
@@ -119,6 +132,9 @@ const Dashboard = () => {
     const handleEscapeKeyPress = (event) => {
         if (event.key === 'Escape') {
             setIsFormOpen(false);
+            setEditModalOpen(false);
+            setMemberShipForm(false);
+            setMemberShipFormRemove(false);
         }
     };
 
@@ -176,7 +192,7 @@ const Dashboard = () => {
             <div className="shadow-gray-800 shadow-sm px-2 py-2 md:px-8 md:p-8 lg:py-8 lg:px-32 flex items center justify-between flex-col-reverse md:flex-row">
                 <div className="flex items-center flow-col justify-center">
                     <div>
-                        <div className="mb-1">
+                        <div classNam   e="mb-1">
                             <p className="text-sm text-gray-800">Name</p>
                             <div className="text-sm md:text-xl font-bold">
                                 {details?.fullName || (
@@ -355,10 +371,28 @@ const Dashboard = () => {
                      <AiFillDollarCircle size={25} className={'ml-2'}/>
                 </div>
                 <div className={'flex items-center group p-2 shadow-gray-800 shadow-sm m-2'}>
-                    <p>
-                        Become a featured artist
-                    </p>
-                     <AiFillCrown size={25} className={'ml-2 group-hover:text-yellow-500 group-hover:scale-110 active:scale-90 duration-300 transition-all transform'}/>
+                    {
+                        details?.isFeatured ?(
+                            <div className={'flex items-center justify around cursor-pointer'} onClick={handleRemoveMemberShipForm}>
+                                <p>
+                                    You are a featured artist
+                                </p>
+                                <div className={'flex items-center justify-center'}>
+                                    <AiFillCrown size={25} className={'text-yellow-500 duration-300 transition-all transform'}/>
+                                </div>
+                            </div>
+                        ):(
+                            <div className={'flex items-center justify around cursor-pointer'} onClick={handleMemberShipForm}>
+                                <p>
+                                    Become a featured artist
+                                </p>
+                                <div className={'flex items-center justify-center'}>
+                                    <AiFillCrown size={25} className={'group-hover:text-yellow-500 group-hover:scale-110 active:scale-90 duration-300 transition-all transform'}/>
+                                </div>
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
             {/* Edit Modal */}
@@ -460,6 +494,13 @@ const Dashboard = () => {
                     <ArtworksUpdateForm artwork={updateArtwork} onUpdate={handleUpdateComplete} />
                 )
             }
+            {
+                memberShipForm && (<BecomeFeatured id={details?.id}/>)
+            }
+            {
+                memberShipFormRemove && (<RemoveFeatured id={details?.id}/>)
+            }
+
         </main>
     );
 };

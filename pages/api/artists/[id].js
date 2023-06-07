@@ -11,6 +11,9 @@ export default async function handler(req, res) {
                 where: {
                     id: id,
                 },
+                include:{
+                    artworks: true
+                }
             });
 
             if (artist) {

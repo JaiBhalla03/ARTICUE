@@ -5,6 +5,7 @@ import {FaPaintBrush} from "react-icons/fa";
 import {Bounce} from "react-awesome-reveal";
 import axios from "axios";
 
+
 const Home = () => {
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenPrice, setIsOpenPrice] = useState(false);
@@ -39,7 +40,22 @@ const Home = () => {
         }
         fetchArtWorks();
     },[])
+    const [artistData, setArtistData] = useState(null);
+    useEffect(()=>{
+        const fetchArtistName = async()=>{
+            try{
+                const res = await axios.get('/api/artists')
+                setArtistData(res);
+            }
+            catch(err){
+                console.error(err);
+                return null;
+            }
+        }
+        fetchArtistName();
+    })
     console.log(artData)
+    const artists = artistData?.data;
     return (
         <main className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20'}>
             <Bounce triggerOnce>
@@ -131,31 +147,15 @@ const Home = () => {
                             className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
                         >
                             <ul className="my-2" aria-labelledby="dropdownDelayButton">
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
-                                        Artist-1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
-                                        Artist-2
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
-                                        Artist-3
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
-                                        Artist-4
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
-                                        Artist-5
-                                    </a>
-                                </li>
+                                {
+                                    artists?.map(artist=>(
+                                        <li>
+                                            <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                                                {artist.name}
+                                            </a>
+                                        </li>
+                                    ))
+                                }
                             </ul>
                         </div>
                     )}

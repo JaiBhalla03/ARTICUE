@@ -42,7 +42,7 @@ const Details = () => {
         <Bounce triggerOnce>
             <div className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20'}>
                 <div className={'md:py-10 md:px-20 shadow-sm shadow-gray-800'}>
-                    <h1 className={'my-2 flex text-3xl md:text-5xl font-bold'}>Specify your details here!</h1>
+                    <h1 className={'my-2 flex text-5xl md:text-5xl font-bold'}>Specify your details here!</h1>
                     {success && (
                         <div className="flex items-center my-4 text-green-500">
                             <CheckCircleIcon className="h-6 h-6 mr-2" />

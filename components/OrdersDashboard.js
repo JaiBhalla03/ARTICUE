@@ -8,7 +8,7 @@ const OrdersDashboard = () => {
         <>
 
             <div className={'relative shadow-gray-800 shadow-sm my-4 h-[350px] p-4 mt-2 overflow-y-scroll custom-scrollbar'}>
-                <div className={'sticky top-0 shadow-sm shadow-gray-800 z-10 bg-gray-950 p-4 rounded-sm'}>
+                <div className={'top-0 shadow-sm shadow-gray-800 z-10 bg-gray-950 p-4 rounded-sm'}>
                     <h1 className={'text-3xl'}>Your current orders!</h1>
                 </div>
                 {

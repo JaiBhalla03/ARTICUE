@@ -9,10 +9,11 @@ const Footer = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         const formData = {
             name,
             email,
@@ -25,6 +26,7 @@ const Footer = () => {
                 setName('');
                 setEmail('');
                 setMessage('');
+                setLoading(false);
             }
         } catch (error) {
             console.error(error);
@@ -100,7 +102,7 @@ const Footer = () => {
                                                 className="text-white px-4 py-2 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-md hover:scale-110 active:scale-90"
                                                 type={'submit'}
                                             >
-                                                Send
+                                                {loading?(<>Sending...</>):(<>Send</>)}
                                             </button>
                                         </div>
                                     </form>

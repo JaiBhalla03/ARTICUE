@@ -1,13 +1,107 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import {AiFillHeart} from "react-icons/ai";
-import {FaShoppingCart} from "react-icons/fa";
+import {FaChevronLeft, FaChevronRight, FaShoppingCart} from "react-icons/fa";
+import FeaturedArtistCard from "../../components/FeaturedArtistCard";
+import {Fade} from "react-awesome-reveal";
+
+const FeaturedArtistSlider = ({ slides, name }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const slideRef = useRef(null);
+    const [slideWidth, setSlideWidth] = useState(0);
+
+    const handlePrevClick = () => {
+        const index = (currentIndex - 1 + slides.length) % slides.length;
+        setCurrentIndex(index);
+    };
+
+    const handleNextClick = () => {
+        const index = (currentIndex + 1) % slides.length;
+        setCurrentIndex(index);
+    };
+
+    useEffect(() => {
+        if (slideRef.current) {
+            setSlideWidth(slideRef.current.offsetWidth / slides.length);
+        }
+    }, [slideRef.current, slides.length]);
+
+    return (
+        <div className="relative py-8 px-6">
+            <div className="flex overflow-hidden relative">
+                <div
+                    className="flex transition-all duration-500"
+                    style={{
+                        transform: `translateX(-${currentIndex * slideWidth}px)`,
+                        width: `${slides.length * 100}%`,
+                    }}
+                    ref={slideRef}
+                >
+                    {slides.map((slide, index) => (
+                        <div
+                            key={index}
+                            className="w-full flex-shrink-0"
+                            style={{ width: `${100 / slides.length}%` }}
+                        >
+                            {slide}
+                        </div>
+                    ))}
+                </div>
+                <button
+                    className="text-white absolute top-1/2 -mt-4 ml-4 z-10 left-0 rounded-sm shadow-gray-800 shadow-sm bg-gray-950 w-10 h-10 flex justify-center items-center hover:scale-110 active:scale-90 duration-300"
+                    onClick={handlePrevClick}
+                >
+                    <FaChevronLeft className="text-xl" />
+                </button>
+                <button
+                    className="text-white absolute top-1/2 -mt-4 mr-4 z-10 right-0 rounded-sm shadow-gray-800 shadow-sm bg-gray-950 w-10 h-10 flex justify-center items-center hover:scale-110 active:scale-90 duration-300"
+                    onClick={handleNextClick}
+                >
+                    <FaChevronRight className="text-xl" />
+                </button>
+            </div>
+            <div className="slider-circles absolute -bottom-2 left-1/2 transform -translate-x-1/2 mb-4">
+                {slides.map((_, index) => (
+                    <span
+                        key={index}
+                        className={`inline-block w-3 h-3 rounded-full mx-2 cursor-pointer ${
+                            index === currentIndex ? 'bg-gray-950 shadow-inner shadow-lg shadow-gray-600 transition-all duration-300' : 'bg-gray-950 shadow-inner shadow-md shadow-gray-800 transition-all duration-300'
+                        }`}
+                        onClick={() => setCurrentIndex(index)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+
 
 const Artist = ({artist}) => {
     const data = artist.artist;
+    const artworks = data.artworks;
 
+    // const slides = [
+    //     <FeaturedArtistCard />,
+    //     <FeaturedArtistCard />,
+    //     <FeaturedArtistCard />,
+    //     <FeaturedArtistCard />,
+    //     <FeaturedArtistCard />,
+    //     <FeaturedArtistCard />,
+    // ];
+    const slides = artworks.map((artwork)=>(
+        <FeaturedArtistCard key={artwork.id}
+                            id={artwork.id}
+                            name={artwork.name}
+                            imag={artwork.imageUrl}
+                            likeCount={artwork.likeCount}
+                            price={artwork.price}
+                            discount={artwork.discount}
+                            artist={artwork.artistName}
+        />
+    ))
     console.log(data)
     return (
         <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
@@ -42,6 +136,14 @@ const Artist = ({artist}) => {
                         there is the discription about the artworks but it not yet included it in the schema the manage with this this text
                     </div>
                 </div>
+            </div>
+            <div className='my-4 max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm flex flex-col'>
+                <h1 className={'text-4xl mx-8 mt-4'}>
+                    See the {data.fullName}'s artworks
+                </h1>
+                <Fade delay={500}>
+                    <FeaturedArtistSlider slides={slides}/>
+                </Fade>
             </div>
             <Link className={'float-right text-blue-400 underline'} href={'/Artists'}>Go to Artists</Link>
         </div>
