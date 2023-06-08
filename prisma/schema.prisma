@@ -49,6 +49,7 @@ model User {
   accounts           Account[]
   sessions           Session[]
   artworks           Artwork[]
+  cartItems          CartItem[]
 }
 
 model Artwork {
@@ -63,6 +64,7 @@ model Artwork {
   artistName         String
   createdAt          DateTime  @default(now())
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartItems          CartItem[]
 }
 
 model Contact {
@@ -74,6 +76,18 @@ model Contact {
   updatedAt          DateTime  @updatedAt
 }
 
+
+model CartItem {
+  id                 String             @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String
+  artworkId          String
+  quantity           Int
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  artwork            Artwork            @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+}
+
+
+
 model VerificationToken {
   id                 String    @id @default(auto()) @map("_id") @db.ObjectId
   identifier         String
@@ -81,3 +95,4 @@ model VerificationToken {
   expires            DateTime
   @@unique([identifier, token])
 }
+

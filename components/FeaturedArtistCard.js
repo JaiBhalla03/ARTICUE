@@ -5,8 +5,8 @@ import {FaShoppingCart} from "react-icons/fa";
 import {AiFillHeart} from "react-icons/ai";
 import Link from "next/link";
 import {MdMore} from "react-icons/md";
-
-const FeaturedArtistCard = ({id, name , imag, likeCount, price, discount, artist}) => {
+import imag from '../images/featured.png';
+const FeaturedArtistCard = ({id, name , likeCount, price, discount, artist}) => {
 
     return (
         <>

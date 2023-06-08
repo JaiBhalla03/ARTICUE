@@ -6,7 +6,7 @@ const BecomeFeatured = ({id}) => {
         e.preventDefault();
         console.log(id)
         try{
-            const res = await axios.post('/api/changeFeaturedAgain', id);
+            const res = await axios.post('/api/changeFeaturedAgain', {id});
             console.log(res);
         }
         catch(err){

@@ -60,6 +60,7 @@ export default function Navbar(){
         setIsOpenDetails(!isOpenDetails);
     };
 
+
     return (
         <nav className={`z-20 bg-gray-950 text-white border-b-[1px] border-b-grey-200 transition-all duration-700 transition-all ${
             isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100 sticky top-0"
@@ -92,9 +93,14 @@ export default function Navbar(){
                             </ul>
                             <ul className="flex space-x-10 text-xl">
                                 <li className={'flex flex-col justify-center'}>
-                                    <a className="hover:text-gray-300">
-                                        <FaShoppingCart size={20}/>
-                                    </a>
+                                    <Link href={'/Cart'} className="hover:text-gray-300">
+                                        {
+                                            data?.user?.role === 'Seller' ? (<>
+                                            </>) : (
+                                                <FaShoppingCart size={20}/>
+                                            )
+                                        }
+                                    </Link>
                                 </li>
                                 <li className={'flex flex-col justify-center'}>
                                     <a className="hover:text-gray-300">

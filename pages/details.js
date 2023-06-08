@@ -7,10 +7,12 @@ import { CheckCircleIcon, RefreshIcon } from '@heroicons/react/outline';
 const Details = () => {
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
+
     const { data: session } = useSession();
-
+    const [role, setRole] = useState(session?.user?.role);
+    const [interestType, setInterestType] = useState(session?.user?.interestType);
     const email = session?.user?.email;
-
+    console.log(session?.user);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -37,7 +39,6 @@ const Details = () => {
             setLoading(false);
         }
     };
-
     return (
         <Bounce triggerOnce>
             <div className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20'}>
@@ -55,6 +56,7 @@ const Details = () => {
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                 id="fullName"
                                 name="fullName"
+                                defaultValue={session?.user?.fullName}
                                 type="text"
                                 placeholder="Enter your full name"
                             />
@@ -64,6 +66,7 @@ const Details = () => {
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                 id="address"
                                 name="address"
+                                defaultValue={session?.user?.address}
                                 type="text"
                                 placeholder="Enter your address"
                             />
@@ -73,6 +76,7 @@ const Details = () => {
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                                 id="phoneNumber"
                                 name="phoneNumber"
+                                defaultValue={session?.user?.phoneNumber}
                                 type="text"
                                 placeholder="Enter your phone-number"
                             />
@@ -81,29 +85,31 @@ const Details = () => {
                             <select
                                 id={'role'}
                                 name={'role'}
+                                value={role}
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                             >
                                 <option value="" disabled selected>
                                     Select your role
                                 </option>
-                                <option>Seller</option>
-                                <option>Buyer</option>
+                                <option value={'Seller'}>Seller</option>
+                                <option value={'Buyer'}>Buyer</option>
                             </select>
                         </div>
                         <div>
                             <select
                                 id={'interestType'}
                                 name={'interestType'}
+                                value={interestType}
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                             >
                                 <option value="" disabled selected>
                                     Select your painting type
                                 </option>
-                                <option>Oil Painters</option>
-                                <option>Watercolor Painters</option>
-                                <option>Acrylic Painters</option>
-                                <option>Pastel Painters</option>
-                                <option>Encaustic Painters</option>
+                                <option value={'Oil Painters'}>Oil Painters</option>
+                                <option value={'Watercolor Painters'}>Watercolor Painters</option>
+                                <option value={'Acrylic Painters'}>Acrylic Painters</option>
+                                <option value={'Pastel Painters'}>Pastel Painters</option>
+                                <option value={'Encaustic Painters'}>Encaustic Painters</option>
                             </select>
                         </div>
                         <div className={'flex justify-center'}>

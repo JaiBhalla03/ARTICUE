@@ -5,7 +5,7 @@ import axios from "axios";
 const BecomeFeatured = ({id}) => {
     const changeFeatured = async(id)=>{
         try{
-            const res = await axios.post('/api/changeFeatured', id);
+            const res = await axios.post('/api/changeFeatured', {id});
             console.log(res);
         }
         catch(err){
