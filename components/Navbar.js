@@ -93,7 +93,7 @@ export default function Navbar(){
                             </ul>
                             <ul className="flex space-x-10 text-xl">
                                 <li className={'flex flex-col justify-center'}>
-                                    <Link href={'/Cart'} className="hover:text-gray-300">
+                                    <Link href={'/cart'} className="hover:text-gray-300">
                                         {
                                             data?.user?.role === 'Seller' ? (<>
                                             </>) : (
