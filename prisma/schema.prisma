@@ -64,7 +64,6 @@ model Artwork {
   artistName         String
   createdAt          DateTime  @default(now())
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cartItems          CartItem[]
 }
 
 model Contact {
@@ -82,7 +81,6 @@ model CartItem {
   userId             String
   artworkId          String
   user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  artwork            Artwork            @relation(fields: [artworkId], references: [id], onDelete: Cascade)
 }
 
 
