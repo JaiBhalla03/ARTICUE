@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSession} from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
+import CartCard from "../components/CartCard";
 
 const Cart = () => {
     const {data:session} = useSession();
@@ -11,8 +12,8 @@ const Cart = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const res = await axios.get(`/api/userCart/${session?.user?.id}`);
-                setDetails(res.data.user);
+                const res = await axios.get(`/api/cartItems/${session?.user?.id}`);
+                setDetails(res.data);
             } catch (err) {
                 console.error(err);
                 setDetails(null);
@@ -20,11 +21,9 @@ const Cart = () => {
         };
         fetchUserData();
     }, [session]);
-
+    console.log(1)
     console.log(details);
-    const cartItems = details?.cartItems;
-    console.log(cartItems);
-
+    const items = details?.cartItems;
     return (
         <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-10">
             <div className="max-w-6xl mx-auto p-4 shadow-gray-800 shadow-sm my-4">
@@ -37,7 +36,18 @@ const Cart = () => {
                         <div className={''}>
                             {
                                 details?.cartItems ? (
-                                    <>there is something</>
+                                    <div className={'flex flex-col gap-2'}>
+                                        {
+                                            items.map((item)=>(
+                                                <CartCard
+                                                    name={item.artwork.name}
+                                                    price={item.artwork.price}
+                                                    artistName={item.artwork.artistName}
+                                                    id={item.id}
+                                                />
+                                            ))
+                                        }
+                                    </div>
                                 ) : (
                                     <div className={'flex flex-col gap-2'}>
                                         <div className={'p-8 bg-gray-800 animate-pulse rounded-sm'}></div>

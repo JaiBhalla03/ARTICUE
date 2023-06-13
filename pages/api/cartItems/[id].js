@@ -1,12 +1,19 @@
-import prisma from '../../prisma/lib/client';
+import prisma from '../../../prisma/lib/client';
 
 export default async function handler(req, res) {
-    const { userId } = req.params;
-
+    const { id } = req.query;
+    console.log(id);
     try {
         const user = await prisma.user.findUnique({
-            where: { id: userId },
-            include: { cartItems: true },
+            where: { id },
+            include:
+                {
+                    cartItems:{
+                        include: {
+                            artwork: true
+                        }
+                    }
+                },
         });
 
         if (!user) {

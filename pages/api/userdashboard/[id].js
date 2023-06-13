@@ -9,6 +9,8 @@ export default async function handler(req, res){
             },
             include:{
                 artworks: true,
+                cartItems: true,
+                likes: true,
             }
         })
         if(user){
