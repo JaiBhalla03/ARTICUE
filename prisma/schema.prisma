@@ -50,6 +50,7 @@ model User {
   sessions           Session[]
   artworks           Artwork[]
   cartItems          CartItem[]
+  likes              Like[]
 }
 
 model Artwork {
@@ -59,37 +60,45 @@ model Artwork {
   imageUrl           String
   price              Float
   discount           Float     @default(0.0)
-  likeCount          Int       @default(0)
   paintingType       String?
   artistName         String
   createdAt          DateTime  @default(now())
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartItems          CartItem[]
+  likes              Like[]
+}
+
+model Like {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  artworkId String
+  user      User     @relation(fields: [userId], references: [id])
+  artwork   Artwork  @relation(fields: [artworkId], references: [id])
+
+  @@unique([userId, artworkId])
 }
 
 model Contact {
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  name               String
-  email              String
-  message            String
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-
 
 model CartItem {
-  id                 String             @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String
-  artworkId          String
-  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  artworkId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  artwork   Artwork  @relation(fields: [artworkId], references: [id], onDelete: Cascade)
 }
-
-
 
 model VerificationToken {
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  identifier         String
-  token              String    @unique
-  expires            DateTime
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
   @@unique([identifier, token])
 }
-

@@ -172,6 +172,7 @@ const Home = () => {
                                     name={artData1.name}
                                     price={artData1.price}
                                     artistName={artData1.artistName}
+                                    paintingType={artData1.paintingType}
                                 />
                             ))
                         }
