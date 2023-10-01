@@ -4,12 +4,16 @@ import GoToTopButton from "../../components/GoToTopButton";
 import {FaPaintBrush} from "react-icons/fa";
 import {Bounce} from "react-awesome-reveal";
 import axios from "axios";
+import {useSession} from "next-auth/react";
 
 
 const Home = () => {
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenPrice, setIsOpenPrice] = useState(false);
     const [isOpenArtist, setIsOpenArtist] = useState(false);
+    const [likeData, setLikeData] = useState(null);
+    const {data ,status} = useSession();
+    const userID = data?.user?.id;
 
     const toggleDropdownCategory = () => {
         setIsOpenCategory(!isOpenCategory);
@@ -53,8 +57,27 @@ const Home = () => {
             }
         }
         fetchArtistName();
-    })
-    console.log(artData)
+        const ans = getAllLike();
+        setLikeData(ans);
+    },[])
+    // console.log(artData)
+    const getAllLike = async()=>{
+        try{
+            const res = await axios.post('/api/getAllLikes', {userId: userID});
+            return res.data.getAllLikes;
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    // const checkIfIdExists = (array, id) => {
+    //     return array?.find(item => item.id === id) !== undefined;
+    // }
+    //
+    // const idToCheck = '64894976940728aca12fe32c';
+    // const exists = checkIfIdExists(likeData, idToCheck);
+    // console.log(exists)
     const artists = artistData?.data;
     return (
         <main className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20'}>

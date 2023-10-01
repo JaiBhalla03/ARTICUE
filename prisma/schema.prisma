@@ -91,8 +91,8 @@ model CartItem {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String
   artworkId String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  artwork   Artwork  @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+  artwork   Artwork  @relation(fields: [artworkId], references: [id])
 }
 
 model VerificationToken {
