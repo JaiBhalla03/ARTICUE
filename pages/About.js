@@ -16,20 +16,20 @@ const About = () => {
             </Bounce>
             <Fade delay={250} triggerOnce>
                 <div className="flex flex-col md:flex-row">
-                    <p className="text-xl mb-8 mt-4 w-[60%] md:w-[100%]">
+                    <p className="text-md lg:text-xl mb-8 mt-4 w-full lg:w-[100%]">
                         Articue is a platform dedicated to showcasing and promoting artworks from talented artists around the world. We
                         believe that art should be accessible to everyone, and our mission is to connect art enthusiasts with extraordinary
                         pieces that inspire and captivate.
                     </p>
-                    <Image className="md:animate-bounce" src={logo} alt="" />
+                    <Image className="hidden lg:block md:animate-bounce" src={logo} alt="" />
                 </div>
             </Fade>
             <Fade delay={500} triggerOnce>
-                <div className="flex flex-col md:flex-row">
+                <div className="flex flex-col lg:flex-row">
                     <div className="relative">
-                        <Image className="m-4" src={aboutImage} alt="" width={450} />
+                        <Image className="mx-auto" src={aboutImage} alt="" width={450} />
                     </div>
-                    <p className="text-xl mb-4 mt-4 w-[60%]">
+                    <p className="text-md lg:text-xl mb-4 mt-4 w-full lg:w-[60%]">
                         With over 5000 artworks from a diverse range of artists, Articue offers a curated collection of paintings,
                         sculptures, photographs, and more. Whether you are an art collector, interior designer, or simply someone who
                         appreciates the beauty of art, Articue provides a seamless experience to explore, purchase, and enjoy artworks. At
@@ -41,14 +41,14 @@ const About = () => {
                 </div>
             </Fade>
             <Fade delay={750} triggerOnce>
-                <div className="flex flex-col justify-between md:flex-row">
-                    <p className="my-10 text-xl md:w-[70%]">
+                <div className="flex flex-col justify-between lg:flex-row">
+                    <p className="my-10 text-md lg:text-xl lg:w-[70%]">
                         Our team at Articue consists of a passionate art enthusiast who is dedicated to curating exceptional artworks,
                         ensuring a seamless user experience, and fostering a supportive environment for artists and collectors alike. I
                         believe that art has the ability to enrich our lives, inspire us, and challenge our perspectives. Through Articue,
                         I invite you to embark on a journey of discovery, exploration, and appreciation of art in all its forms.
                     </p>
-                    <div className="relative">
+                    <div className="relative mx-auto">
                         <Image width={300} className="rounded-full shadow-gray-800 shadow-md" src={profile} alt="" />
                         <div className="absolute rounded-full inset-0 flex items-center justify-center bg-black bg-opacity-90 transition-opacity duration-300 opacity-0 hover:opacity-100">
                             <p className="text-white text-2xl font-bold">Jai Bhalla <br/>[Creator of ARTICUE]</p>
