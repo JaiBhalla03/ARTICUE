@@ -36,10 +36,10 @@ const Footer = () => {
     return (
         <>
             <Fade delay={250} className={'z-0'}>
-                <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
+                <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-20 sm:py-4 md:py-20">
                     <div className="max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm">
                         <div className="p-5">
-                            <div className={'md:flex md:flex-wrap md:-mx-4 py-6 m-4'}>
+                            <div className={'md:flex md:flex-wrap py-6 my-4'}>
                                 <div className="md:w-[30%] md:px-4">
                                     <h2 className="uppercase mb-4 font-bold text-xl">About us</h2>
                                     <p className="leading-loose text-sm">

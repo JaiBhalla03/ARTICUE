@@ -25,7 +25,7 @@ const FeaturedArtistSlider = ({ slides, name }) => {
     }, [slideRef.current, slides.length]);
 
     return (
-        <div className="mx-8 md:mx-28 relative shadow-gray-800 shadow-sm m-4 py-8 px-6">
+        <div className="mx-4 sm:mx-16 md:mx-24 relative shadow-gray-800 shadow-sm my-4 py-8 px-6">
             <div className="flex overflow-hidden relative">
                 <div
                     className="flex transition-all duration-500"

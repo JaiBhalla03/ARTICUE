@@ -26,9 +26,9 @@ export default function Home() {
           <Features/>
           <FeaturedArtists/>
           <ForYou/>
-          <div id={'add'}>
-              <Add/>
-          </div>
+          {/*<div id={'add'}>*/}
+          {/*    <Add/>*/}
+          {/*</div>*/}
           <div className="fixed bottom-4 right-4 z-30">
               <GoToTopButton/>
           </div>

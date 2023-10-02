@@ -24,7 +24,7 @@ const FeaturedArtistSlider = ({ slides, name }) => {
     }, [slideRef.current, slides.length]);
 
     return (
-        <div className="relative shadow-gray-800 shadow-sm m-4 py-8 px-6">
+        <div className="relative shadow-gray-800 shadow-sm my-4 py-8 px-6">
             <h1 className={'text-3xl py-2'}>{name}</h1>
             <div className="flex overflow-hidden relative">
                 <div

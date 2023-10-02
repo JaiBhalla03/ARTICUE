@@ -157,8 +157,8 @@ export default function Navbar(){
                 </div>
             </div>
             {isOpen && (
-                <div className="md:hidden text-xl">
-                    <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-16 left-0 w-full bg-gray-950">
+                <div className="md:hidden text-xl h-screen flex w-full items-center">
+                    <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-1/2 -translate-y-1/2 left-0 w-full bg-gray-950">
                         <li className="text-center">
                             <Link href="/Artworks" className="hover:text-gray-300">
                                 Artworks
@@ -191,10 +191,9 @@ export default function Navbar(){
                         <li className={'relative flex flex-col justify-center items-center'}>
                             <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                 {data ?
-                                    <button onClick={toggle} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
+                                    <button onClick={toggleDropdownDetails} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
                                         <div>
                                             <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
-
                                         </div>
                                     </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
                             </div>
