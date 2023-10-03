@@ -7,15 +7,13 @@ import Link from "next/link";
 
 const ArtistsCard = ({userImage, name, numberOfArtworks, id}) => {
     return (
-        <div className={'p-2 m-2 shadow-gray-800 shadow-sm rounded-sm inline-block'}>
-
-            <div className="w-80 text-xl m-2 overflow-hidden rounded-sm relative group">
+        <div className={'mx-auto p-2 m-2 shadow-gray-800 shadow-sm rounded-sm inline-block'}>
+            <div className="mx-auto p-2 w-80 h-96 text-xl m-2 overflow-hidden rounded-sm relative group">
                 <Image
                     src={userImage}
                     alt="Artwork"
-                    width={350}
-                    height={350}
-                    className="group rounded-sm group-hover:scale-110 duration-500 transition-all"
+                    fill
+                    className="w-auto group rounded-sm group-hover:scale-110 duration-500 transition-all"
                 />
                 <div className="absolute p-4 flex flex-col inset-0 justify-between bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className={'flex justify-end'}>

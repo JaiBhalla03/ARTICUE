@@ -159,36 +159,36 @@ export default function Navbar(){
             {isOpen && (
                 <div className="md:hidden text-xl h-screen flex w-full items-center">
                     <ul className="flex flex-col space-y-10 py-4 px-3 absolute top-1/2 -translate-y-1/2 left-0 w-full bg-gray-950">
-                        <li className="text-center">
+                        <div onClick={toggleMenu} className="cursor-pointer text-center">
                             <Link href="/Artworks" className="hover:text-gray-300">
                                 Artworks
                             </Link>
-                        </li>
-                        <li className="text-center">
+                        </div>
+                        <div onClick={toggleMenu} className="cursor-pointer text-center">
                             <Link href="/Artists" className="hover:text-gray-300">
                                 Artist
                             </Link>
-                        </li>
-                        <li className="text-center">
+                        </div>
+                        <div onClick={toggleMenu} className="cursor-pointer text-center">
                             <Link href="/About" className="hover:text-gray-300">
                                 About
                             </Link>
-                        </li>
-                        <li className={''}>
+                        </div>
+                        <div onClick={toggleMenu} className={''}>
                             <a className="flex justify-center items-center hover:text-gray-300">
                                 <div className={'flex'}>
                                     See your cart <FaShoppingCart className={'ml-2'} size={24}/>
                                 </div>
                             </a>
-                        </li>
-                        <li className={''}>
+                        </div>
+                        <div onClick={toggleMenu} className={''}>
                             <a className="flex justify-center items-center hover:text-gray-300">
                                 <div className={'flex'}>
                                     Search by keywords <FaSearch className={'ml-2'} size={24} onClick={handleClick_1}/>
                                 </div>
                             </a>
-                        </li>
-                        <li className={'relative flex flex-col justify-center items-center'}>
+                        </div>
+                        <div className={'relative flex flex-col justify-center items-center'}>
                             <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                 {data ?
                                     <button onClick={toggleDropdownDetails} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
@@ -197,7 +197,7 @@ export default function Navbar(){
                                         </div>
                                     </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
                             </div>
-                        </li>
+                        </div>
                     </ul>
                 </div>
             )}

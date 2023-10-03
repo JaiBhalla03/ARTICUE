@@ -26,7 +26,7 @@ const Hero = () => {
                 <div className={'pt-6 sm:pt-20'}>
                     <div className={'flex flex-col sm:flex-row'}>
                         <div className={'pb-2'}>
-                            <h1 className={'text-[2.9rem] font-thin sm:mt-5 flex'}>
+                            <h1 className={'text-[2.9rem] font-thin sm:mt-5 flex justify-center'}>
                                 Welcome to</h1>
                         </div>
 
