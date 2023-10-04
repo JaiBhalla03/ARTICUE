@@ -3,10 +3,11 @@ import Image from "next/image";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 import lol from '../images/user.png'
 import axios from "axios";
-const CartCard = ({name, price, artistName, id, imageUrl, discount}) => {
+const CartCard = ({name, price, artistName, id, imageUrl, discount, removeFromCart}) => {
     const discountedPrice = (price, discount)=>{
         return Math.floor(price-price*discount*0.01);
     }
+
     const handleDelete = async(id)=>{
         const data = {id: id};
         console.log(data);
@@ -19,11 +20,14 @@ const CartCard = ({name, price, artistName, id, imageUrl, discount}) => {
             return new Error(err);
         }
     }
-    const deleteItem = ()=>{
-        handleDelete(id).then(()=>{
-            console.log('cart items deleted!!')
+
+    const deleteItem = () => {
+        handleDelete(id).then(() => {
+            removeFromCart(id); // Update local state on successful deletion
+            console.log('cart items deleted!!');
         });
-    }
+    };
+
     return (
         <div className={'shadow-sm shadow-gray-800 p-4 flex justify-between'}>
             <Image src={imageUrl} alt={''} className={'rounded-sm'} width={80} height={80}/>

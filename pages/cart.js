@@ -3,6 +3,7 @@ import {useSession} from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 import CartCard from "../components/CartCard";
+import {HiEmojiSad} from "react-icons/hi";
 
 const Cart = () => {
     const {data:session} = useSession();
@@ -21,6 +22,14 @@ const Cart = () => {
         };
         fetchUserData();
     }, [session]);
+
+    const removeFromCart = (itemId) => {
+        setDetails((prevDetails) => ({
+            ...prevDetails,
+            cartItems: prevDetails.cartItems.filter((item) => item.id !== itemId),
+        }));
+    };
+
     const totalAmount = (arr)=>{
         let sum = 0;
         for(let i = 0;i<arr?.length;i++){
@@ -40,6 +49,7 @@ const Cart = () => {
     console.log(1)
     console.log(details);
     const items = details?.cartItems;
+    console.log(items);
     return (
         <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-10">
             <div className="max-w-6xl mx-auto p-4 shadow-gray-800 shadow-sm my-4">
@@ -47,12 +57,20 @@ const Cart = () => {
                     Your Cart 🛒
                 </h1>
                 <div className={'flex flex-col lg:flex-row justify-between shadow-sm shadow-gray-800 p-2 mt-4'}>
-                    <div className={'p-2 shadow-sm shadow-gray-800 w-full lg:w-1/2 h-96 custom-scrollbar overflow-scroll'}>
+                    <div className={'p-2 flex flex-col shadow-sm shadow-gray-800 w-full lg:w-1/2 h-96 custom-scrollbar overflow-scroll'}>
                         <h2 className={'text-2xl font-thin sticky top-0 z-10 bg-gray-950'}>Selected Items</h2>
-                        <div className={''}>
+                        <div className={'h-full'}>
                             {
                                 details?.cartItems ? (
-                                    <div className={'flex flex-col gap-2'}>
+                                    <div className={'flex h-full flex-1 flex-col gap-2'}>
+                                        {items.length === 0 && (
+                                            <div className={'text-gray-700 flex h-full justify-center gap-2 flex-col items-center'}>
+                                                <HiEmojiSad size={100}/>
+                                                <div className={'text-sm md:text-md'}>
+                                                    Your cart is empty
+                                                </div>
+                                            </div>
+                                        )}
                                         {
                                             items.map((item)=>(
                                                 <CartCard
@@ -62,6 +80,7 @@ const Cart = () => {
                                                     id={item.id}
                                                     imageUrl={item.artwork.imageUrl}
                                                     discount={item.artwork.discount}
+                                                    removeFromCart={removeFromCart}
                                                 />
                                             ))
                                         }
