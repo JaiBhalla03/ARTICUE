@@ -250,8 +250,8 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <div className={'flex justify-between my-4'}>
-                <div className={'shadow-sm m-1 shadow-gray-800 p-4 w-3/5'}>
+            <div className={'flex flex-col-reverse md:flex-row justify-between my-4'}>
+                <div className={'shadow-sm m-1 shadow-gray-800 p-4 w-full md:w-3/5'}>
                     <div role="status" class="max-w-2xl p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-900">
                         <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-900 w-32 mb-2.5"></div>
                         <div class="w-48 h-2 mb-10 bg-gray-200 rounded-full dark:bg-gray-900"></div>
@@ -274,7 +274,7 @@ const Dashboard = () => {
                     </div>
 
                 </div>
-                <div className={'relative h-[500px] overflow-y-scroll shadow-sm m-1 shadow-gray-800 p-3 w-2/5 custom-scrollbar'}>
+                <div className={'relative h-[500px] overflow-y-scroll shadow-sm m-1 shadow-gray-800 p-3 w-full md:w-2/5 custom-scrollbar'}>
                     <div className={'sticky top-0 bg-gray-950'}>
                         <div className={'flex justify-between shadow-gray-800 shadow-sm p-2'}>
                             <h1 className={'text-2xl flex items-center'}>

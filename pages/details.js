@@ -11,6 +11,15 @@ const Details = () => {
     const { data: session } = useSession();
     const [role, setRole] = useState(session?.user?.role);
     const [interestType, setInterestType] = useState(session?.user?.interestType);
+
+    const handleRoleChange = (e) => {
+        setRole(e.target.value);
+    };
+
+    const handleInterestTypeChange = (e) => {
+        setInterestType(e.target.value);
+    };
+
     const email = session?.user?.email;
     console.log(session?.user);
     const handleSubmit = async (e) => {
@@ -86,6 +95,7 @@ const Details = () => {
                                 id={'role'}
                                 name={'role'}
                                 value={role}
+                                onChange={handleRoleChange}
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                             >
                                 <option value="" disabled selected>
@@ -100,6 +110,7 @@ const Details = () => {
                                 id={'interestType'}
                                 name={'interestType'}
                                 value={interestType}
+                                onChange={handleInterestTypeChange}
                                 className="bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full"
                             >
                                 <option value="" disabled selected>

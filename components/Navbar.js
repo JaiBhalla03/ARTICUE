@@ -7,6 +7,8 @@ import {useDispatch} from "react-redux";
 import {togglePopup} from "@/redux/actions";
 import {signIn, signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
+import {AiFillEdit, AiFillHeart} from "react-icons/ai";
+import {BiGrid} from "react-icons/bi";
 
 export default function Navbar(){
     const router = useRouter();
@@ -59,6 +61,8 @@ export default function Navbar(){
     const toggleDropdownDetails = () => {
         setIsOpenDetails(!isOpenDetails);
     };
+    console.log(data);
+    console.log(data?.user?.role);
 
 
     return (
@@ -92,21 +96,22 @@ export default function Navbar(){
                                 </li>
                             </ul>
                             <ul className="flex space-x-10 text-xl">
-                                <li className={'flex flex-col justify-center'}>
-                                    <Link href={'/cart'} className="hover:text-gray-300">
-                                        {
-                                            data?.user?.role === 'Seller' ? (<>
-                                            </>) : (
-                                                <FaShoppingCart size={20}/>
-                                            )
-                                        }
-                                    </Link>
-                                </li>
-                                <li className={'flex flex-col justify-center'}>
-                                    <a className="hover:text-gray-300">
-                                        <FaSearch size={20} onClick={handleClick}/>
-                                    </a>
-                                </li>
+                                {data && data?.user?.role === 'Buyer' && (
+                                    <li className={'flex flex-col justify-center'}>
+                                        <Link href={'/cart'} className="hover:text-gray-300">
+                                            <FaShoppingCart size={20} />
+                                        </Link>
+                                    </li>
+                                )}
+                                {
+                                    data && (
+                                        <li className={'flex flex-col justify-center'}>
+                                            <Link href={'/like'} className="hover:text-gray-300">
+                                                <AiFillHeart size={20}/>
+                                            </Link>
+                                        </li>
+                                    )
+                                }
                                 <li className={'relative flex flex-col justify-center items-center'}>
                                     <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                         {data ?
@@ -116,15 +121,19 @@ export default function Navbar(){
                                                     {isOpenDetails && (
                                                         <div
                                                             id="dropdownDelay"
-                                                            className="absolute right-0 z-10 mt-4 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
+                                                            className="absolute hidden md:block right-0 z-10 mt-4 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
                                                         >
                                                             <ul className="my-2" aria-labelledby="dropdownDelayButton">
-                                                                <li className={'text-lg'}>
-                                                                    <Link href="/dashboard" className="block px-3 py-1 hover:bg-gray-900">
-                                                                        Dashboard
-                                                                    </Link>
-                                                                </li>
-                                                                <li className={'text-lg'}>
+                                                                {
+                                                                    data && data?.user?.role === 'Seller' && (
+                                                                        <li className={'text-lg'}>
+                                                                            <Link href="/dashboard" className="block px-3 py-1 hover:bg-gray-900">
+                                                                                Dashboard
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
+                                                                }
+                                                                <li className={'tex t-lg'}>
                                                                     <Link href="/details" className="block px-3 py-1 hover:bg-gray-900">
                                                                         Update details
                                                                     </Link>
@@ -166,7 +175,7 @@ export default function Navbar(){
                         </div>
                         <div onClick={toggleMenu} className="cursor-pointer text-center">
                             <Link href="/Artists" className="hover:text-gray-300">
-                                Artist
+                                Artists
                             </Link>
                         </div>
                         <div onClick={toggleMenu} className="cursor-pointer text-center">
@@ -174,20 +183,50 @@ export default function Navbar(){
                                 About
                             </Link>
                         </div>
-                        <div onClick={toggleMenu} className={''}>
-                            <a className="flex justify-center items-center hover:text-gray-300">
-                                <div className={'flex'}>
-                                    See your cart <FaShoppingCart className={'ml-2'} size={24}/>
+                        {
+                            data && data?.user?.role === 'Buyer' && (
+                                <div onClick={toggleMenu} className={''}>
+                                    <a className="flex justify-center items-center hover:text-gray-300">
+                                        <div className={'flex items-center'}>
+                                            See your cart <FaShoppingCart className={'ml-2'} size={24}/>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-                        <div onClick={toggleMenu} className={''}>
-                            <a className="flex justify-center items-center hover:text-gray-300">
-                                <div className={'flex'}>
-                                    Search by keywords <FaSearch className={'ml-2'} size={24} onClick={handleClick_1}/>
+                            )
+                        }
+                        {
+                            data && (
+                                <div onClick={toggleMenu} className={''}>
+                                    <a className="flex justify-center items-center hover:text-gray-300">
+                                        <div className={'flex items-center'}>
+                                            See your Liked arts <AiFillHeart className={'ml-2'} size={24}/>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
+                            )
+                        }
+                        {
+                            data && (
+                                <div onClick={toggleMenu} className={''}>
+                                    <Link href={'/details'} className="flex justify-center items-center hover:text-gray-300">
+                                        <div className={'flex items-center'}>
+                                            Update Details <AiFillEdit className={'ml-2'} size={24}/>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )
+                        }
+                        {
+                            data && data?.user?.role === 'Seller' && (
+                                <div onClick={toggleMenu} className={''}>
+                                    <Link href={'/dashboard'} className="flex justify-center items-center hover:text-gray-300">
+                                        <div className={'flex items-center'}>
+                                            Dashboard <BiGrid className={'ml-2'} size={24}/>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )
+                        }
                         <div className={'relative flex flex-col justify-center items-center'}>
                             <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                 {data ?
@@ -195,7 +234,7 @@ export default function Navbar(){
                                         <div>
                                             <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
                                         </div>
-                                    </button>: <button onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
+                                    </button>: <button className={'flex items-center gap-2'} onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}>SignIn/Login<FaUser size={20}/></button>}
                             </div>
                         </div>
                     </ul>
