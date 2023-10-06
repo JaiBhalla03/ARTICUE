@@ -7,7 +7,7 @@ import {FaChevronLeft, FaChevronRight, FaShoppingCart} from "react-icons/fa";
 import FeaturedArtistCard from "../../components/FeaturedArtistCard";
 import {Fade} from "react-awesome-reveal";
 
-const FeaturedArtistSlider = ({ slides, name }) => {
+const FeaturedArtistSlider = ({ slides}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const slideRef = useRef(null);
     const [slideWidth, setSlideWidth] = useState(0);
@@ -82,15 +82,6 @@ const FeaturedArtistSlider = ({ slides, name }) => {
 const Artist = ({artist}) => {
     const data = artist.artist;
     const artworks = data.artworks;
-
-    // const slides = [
-    //     <FeaturedArtistCard />,
-    //     <FeaturedArtistCard />,
-    //     <FeaturedArtistCard />,
-    //     <FeaturedArtistCard />,
-    //     <FeaturedArtistCard />,
-    //     <FeaturedArtistCard />,
-    // ];
     const slides = artworks.map((artwork)=>(
         <FeaturedArtistCard key={artwork.id}
                             id={artwork.id}
@@ -100,9 +91,11 @@ const Artist = ({artist}) => {
                             price={artwork.price}
                             discount={artwork.discount}
                             artist={artwork.artistName}
+                            paintingType={artwork.paintingType}
         />
     ))
-    console.log(data)
+    console.log(data.artworks)
+
     return (
         <div className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
             <div className="max-w-6xl mx-auto px-4 shadow-gray-800 shadow-sm items-center flex flex-col lg:flex-row">
@@ -127,13 +120,7 @@ const Artist = ({artist}) => {
                         </div>
                     </div>
                     <div className={'shadow-sm shadow-gray-800 p-2 my-2'}>
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
+                        {data.bio}
                     </div>
                 </div>
             </div>

@@ -27,6 +27,7 @@ const Dashboard = () => {
     const [details, setDetails] = useState({});
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
+    const [description, setDescription] = useState('');
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [artworkName, setArtworkName] = useState('');
     const [artUrl, setArtUrl] = useState('');
@@ -42,6 +43,11 @@ const Dashboard = () => {
     const handleMemberShipForm = ()=>{
         setMemberShipForm(true);
     };
+
+    const handleBecomeFeaturedClose = () => {
+        setMemberShipForm(false); // Assuming setMemberShipForm is a state updater for BecomeFeatured visibility
+    };
+
     const handleRemoveMemberShipForm = ()=>{
         setMemberShipFormRemove(true);
     };
@@ -94,7 +100,8 @@ const Dashboard = () => {
                 price: price,
                 discount: discount,
                 paintingType: paintingType,
-                artistName: details?.fullName
+                artistName: details?.fullName,
+                description: description
             };
             console.log(artworkData);
             const res = await axios.post('/api/addArtworks', artworkData);
@@ -109,6 +116,7 @@ const Dashboard = () => {
         setPrice('');
         setDiscount('');
         setPaintingType('');
+        setDescription('');
 
     };
 
@@ -135,6 +143,8 @@ const Dashboard = () => {
             setEditModalOpen(false);
             setMemberShipForm(false);
             setMemberShipFormRemove(false);
+            setUpdateBox(false);
+
         }
     };
 
@@ -250,6 +260,14 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <div className="my-4 shadow-sm shadow-gray-800 p-4">
+                <p className="text-sm text-gray-800">Bio</p>
+                <div className="text-sm md:text-lg font-normal">
+                    {details?.bio || (
+                        <div className="h-3 bg-gray-800 rounded-full dark:bg-gray-900 w-full mb-4 animate-pulse"></div>
+                    )}
+                </div>
+            </div>
             <div className={'flex flex-col-reverse md:flex-row justify-between my-4'}>
                 <div className={'shadow-sm m-1 shadow-gray-800 p-4 w-full md:w-3/5'}>
                     <div role="status" class="max-w-2xl p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-900">
@@ -291,7 +309,7 @@ const Dashboard = () => {
                         details ? (<div className={''}>
                             {
                                 artworks?.map((artwork)=>(
-                                    <div className={'my-2 shadow-gray-800 shadow-sm py-2 px-4'}>
+                                    <div className={'h-32 flex flex-col justify-between w-full my-2 shadow-gray-800 shadow-sm py-2 px-4'}>
                                         <div className={'flex justify-between '}>
                                             <div className={'w-4/5'}>
                                                 <div className={'flex justify-between'}>
@@ -313,8 +331,8 @@ const Dashboard = () => {
 
                                                 </div>
                                             </div>
-                                            <div className={'flex justify-center items-center shadow-gray-800 shadow-sm rounded-sm'}>
-                                                <Image src={artwork.imageUrl} alt={''} width={50} height={50} className={'rounded-sm'}/>
+                                            <div className={'flex overflow-hidden justify-center items-center shadow-gray-800 shadow-sm rounded-sm'}>
+                                                <Image src={artwork.imageUrl} alt={''} height={50} width={50} className={'rounded-sm'}/>
                                             </div>
                                         </div>
                                         <div className={'flex justify-between'}>
@@ -464,6 +482,13 @@ const Dashboard = () => {
                                 <option value="Pastel">Pastel</option>
                                 <option value="Encaustic">Encaustic</option>
                             </select>
+                            <textarea
+                                className={'resize-none h-20 bg-gray-950 p-2 shadow-sm shadow-gray-800 rounded-sm m-1 focus:outline-none'}
+                                name="description"
+                                placeholder="Enter the description about the artwork"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
                             <div className={'flex justify-center'}>
                                 <button
                                     className="text-white p-2 mt-2 text-lg transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"
@@ -495,7 +520,7 @@ const Dashboard = () => {
                 )
             }
             {
-                memberShipForm && (<BecomeFeatured id={details?.id}/>)
+                memberShipForm && (<BecomeFeatured id={details?.id} onClose={handleBecomeFeaturedClose}/>)
             }
             {
                 memberShipFormRemove && (<RemoveFeatured id={details?.id}/>)

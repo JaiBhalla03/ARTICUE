@@ -8,6 +8,7 @@ const ArtworksUpdateForm = ({ artwork, onUpdate }) => {
     const [discount, setDiscount] = useState(artwork.discount);
     const [paintingType, setPaintingType] = useState(artwork.paintingType);
     const [isLoading, setIsLoading] = useState(false);
+    const [description, setDescription] = useState(artwork.description);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -21,6 +22,7 @@ const ArtworksUpdateForm = ({ artwork, onUpdate }) => {
                 price: price,
                 discount: discount,
                 paintingType: paintingType,
+                description: description
             };
 
             console.log(artworkData);
@@ -36,6 +38,7 @@ const ArtworksUpdateForm = ({ artwork, onUpdate }) => {
             setPrice('');
             setDiscount('');
             setPaintingType('');
+            setDescription('');
         } catch (err) {
             console.error(err);
         }
@@ -94,6 +97,13 @@ const ArtworksUpdateForm = ({ artwork, onUpdate }) => {
                         <option value="Pastel">Pastel</option>
                         <option value="Encaustic">Encaustic</option>
                     </select>
+                    <textarea
+                        className={'resize-none bg-gray-950 p-2 h-20 shadow-sm shadow-gray-800 rounded-sm m-1 focus:outline-none'}
+                        name="description"
+                        placeholder="Enter the description about the art piece"
+                        defaultValue={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
                     <div className={'flex justify-center'}>
                         <button
                             className="text-white p-2 mt-2 text-lg transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90"

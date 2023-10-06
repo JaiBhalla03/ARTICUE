@@ -72,17 +72,19 @@ const FeaturedArtistSlider = ({ slides, name }) => {
         </div>
     );
 };
-const FeaturedArtist = ({name}) => {
-    const slides = [
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-    ];
+const FeaturedArtist = ({name, artworks}) => {
+    const slides = artworks.map((artwork)=>(
+        <FeaturedArtistCard key={artwork.id}
+                            id={artwork.id}
+                            name={artwork.name}
+                            imag={artwork.imageUrl}
+                            likeCount={artwork.likeCount}
+                            price={artwork.price}
+                            discount={artwork.discount}
+                            artist={artwork.artistName}
+                            paintingType={artwork.paintingType}
+        />
+    ))
 
     return (
             <FeaturedArtistSlider slides={slides} name={name}/>

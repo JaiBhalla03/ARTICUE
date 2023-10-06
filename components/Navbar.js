@@ -61,8 +61,8 @@ export default function Navbar(){
     const toggleDropdownDetails = () => {
         setIsOpenDetails(!isOpenDetails);
     };
-    console.log(data);
-    console.log(data?.user?.role);
+    //console.log(data);
+    //console.log(data?.user?.role);
 
 
     return (

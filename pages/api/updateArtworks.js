@@ -1,13 +1,13 @@
 import prisma from '../../prisma/lib/client';
 
 export default async function updateArtwork(req, res) {
-    const { id, name, imageUrl, price: priceString, discount: discountString, paintingType } = req.body;
+    const { id, name, imageUrl, price: priceString, discount: discountString, paintingType, description } = req.body;
     const price = parseInt(priceString);
     const discount = parseFloat(discountString);
     try {
         const updatedArtwork = await prisma.artwork.update({
             where: { id },
-            data: { name, imageUrl, price, discount, paintingType },
+            data: { name, imageUrl, price, discount, paintingType, description },
         });
 
         res.status(200).json(updatedArtwork);

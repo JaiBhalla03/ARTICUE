@@ -4,7 +4,7 @@ export default async function handler(req, res){
     if(req.method !== 'POST'){
         return res.status(405).json({error: 'Method not allowed'});
     }
-    const {userId, name, imageUrl, price: priceString, discount: discountString, paintingType, artistName} = req.body;
+    const {userId, name, imageUrl, price: priceString, discount: discountString, paintingType, artistName, description} = req.body;
 
     const price = parseInt(priceString);
     const discount = parseFloat(discountString);
@@ -20,6 +20,7 @@ export default async function handler(req, res){
                 discount,
                 paintingType,
                 artistName,
+                description
             },
         });
         res.status(200).json({message: 'Artworks added successfully', artwork});

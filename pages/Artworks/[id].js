@@ -38,13 +38,7 @@ const ArtworkPage= ({artwork}) => {
                         </div>
                     </div>
                     <div className={'shadow-sm shadow-gray-800 p-2 my-2'}>
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
-                        there is the discription about the artworks but it not yet included it in the schema the manage with this this text
+                        {data.description}
                     </div>
                     <div className={'shadow-sm shadow-gray-800 p-2 my-2 flex justify-between'}>
                         <div className={''}>

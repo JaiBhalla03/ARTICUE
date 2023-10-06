@@ -45,6 +45,7 @@ model User {
   userImage          String?
   role               String?
   interestType       String?
+  bio                String?
   isFeatured         Boolean    @default(false)
   accounts           Account[]
   sessions           Session[]
@@ -62,6 +63,7 @@ model Artwork {
   discount           Float     @default(0.0)
   paintingType       String?
   artistName         String
+  description        String?
   createdAt          DateTime  @default(now())
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   cartItems          CartItem[]

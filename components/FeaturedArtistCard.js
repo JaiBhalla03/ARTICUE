@@ -5,22 +5,25 @@ import {FaShoppingCart} from "react-icons/fa";
 import {AiFillHeart} from "react-icons/ai";
 import Link from "next/link";
 import {MdMore} from "react-icons/md";
-import imag from '../images/featured.png';
-const FeaturedArtistCard = ({id, name , likeCount, price, discount, artist}) => {
+//import imag from '../images/featured.png';
+
+const FeaturedArtistCard = ({id, name , imag, likeCount, price, discount, artist, paintingType}) => {
 
     return (
         <>
-            <div className="w-80 text-xl m-2 overflow-hidden rounded-sm relative group">
+            <div className="h-96 w-80 text-xl m-2 overflow-hidden rounded-sm relative group">
                 <Image
                     src={imag}
                     alt="Artwork"
-                    width={350}
-                    height={350}
-                    className="group rounded-sm group-hover:scale-110 duration-500 transition-all"
+                    fill
+                    className="h-full w-auto group rounded-sm group-hover:scale-110 duration-500 transition-all"
                 />
                 <div className="absolute p-4 flex flex-col inset-0 justify-between bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className={'flex justify-end'}>
-                        <span className={'w-max-xl bg-gray-950 p-2 shadow-gray-800 shadow-sm'}>{name}</span>
+                        <span className={'inline w-max-xl bg-gray-950 p-2 shadow-gray-800 shadow-sm'}>
+                            {name}
+                            <div className={'text-blue-500 underline'}>{paintingType}</div>
+                        </span>
                     </div>
                     <div className={'flex justify-around'}>
                         <button title={'Add the cart'}><FaShoppingCart className={'text-white hover:scale-105 active:scale-95 hover:text-gray-200 transform transition-all duration-100'} size={35}/></button>

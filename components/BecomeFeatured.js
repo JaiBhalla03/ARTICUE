@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Image from "next/image";
 import featured from '../images/featured.png'
 import axios from "axios";
-const BecomeFeatured = ({id}) => {
+
+const BecomeFeatured = ({id, onClose}) => {
+    const [isFeaturedVisible, setIsFeaturedVisible] = useState(true);
     const changeFeatured = async(id)=>{
         try{
             const res = await axios.post('/api/changeFeatured', {id});
@@ -14,9 +16,16 @@ const BecomeFeatured = ({id}) => {
     }
     const handleClick = ()=>{
         changeFeatured(id).then(()=>{
-            console.log('user is featured is now true')
+            console.log('user is featured is now true');
+            setIsFeaturedVisible(false); // Hide the component after the action is performed
+            onClose();
         });
     }
+
+    if (!isFeaturedVisible) {
+        return null;
+    }
+
     return (
         <div className={'z-200 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'}>
             <div className="bg-gray-950 shadow-gray-800 shadow-sm rounded-sm p-10 w-10/12 flex flex-col gap-4">

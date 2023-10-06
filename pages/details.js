@@ -30,6 +30,7 @@ const Details = () => {
         const fullName = formData.get('fullName');
         const address = formData.get('address');
         const phoneNumber = formData.get('phoneNumber');
+        const bio = formData.get('bio');
 
         try {
             setLoading(true);
@@ -39,7 +40,8 @@ const Details = () => {
                 interestType,
                 fullName,
                 address,
-                phoneNumber
+                phoneNumber,
+                bio
             });
             setLoading(false);
             setSuccess(true);
@@ -116,12 +118,21 @@ const Details = () => {
                                 <option value="" disabled selected>
                                     Select your painting type
                                 </option>
-                                <option value={'Oil Painters'}>Oil Painters</option>
-                                <option value={'Watercolor Painters'}>Watercolor Painters</option>
-                                <option value={'Acrylic Painters'}>Acrylic Painters</option>
-                                <option value={'Pastel Painters'}>Pastel Painters</option>
-                                <option value={'Encaustic Painters'}>Encaustic Painters</option>
+                                <option value={'Oil'}>Oil Painters</option>
+                                <option value={'Watercolor'}>Watercolor Painters</option>
+                                <option value={'Acrylic'}>Acrylic Painters</option>
+                                <option value={'Pastel'}>Pastel Painters</option>
+                                <option value={'Encaustic'}>Encaustic Painters</option>
                             </select>
+                        </div>
+                        <div>
+                            <textarea
+                                className="h-32 bg-gray-950 border-none focus:outline-none focus:border-none shadow-gray-800 shadow-sm rounded-sm my-2 p-2 w-full resize-none"
+                                id="bio"
+                                name="bio"
+                                defaultValue={session?.user?.bio}
+                                placeholder="Tell something about yourself"
+                            />
                         </div>
                         <div className={'flex justify-center'}>
                             <button

@@ -5,12 +5,12 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { email, role, interestType, fullName, address, phoneNumber } = req.body;
+    const { email, role, interestType, fullName, address, phoneNumber, bio } = req.body;
 
     try {
         const updatedUser = await prisma.user.update({
             where: { email },
-            data: { fullName, address , phoneNumber, role, interestType },
+            data: { fullName, address , phoneNumber, role, interestType, bio},
         });
 
         res.status(200).json(updatedUser);

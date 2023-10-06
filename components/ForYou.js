@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import FeaturedArtistCard from '@/components/FeaturedArtistCard';
 import {FaChevronLeft, FaChevronRight, FaPaintBrush} from 'react-icons/fa';
 import {Bounce, Fade} from "react-awesome-reveal";
+import {useSession} from "next-auth/react";
+import axios from "axios";
 
 const FeaturedArtistSlider = ({ slides, name }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -73,16 +75,44 @@ const FeaturedArtistSlider = ({ slides, name }) => {
     );
 };
 const ForYou = () => {
-    const slides = [
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-        <FeaturedArtistCard />,
-    ];
+    const {data, status} = useSession();
+    const [forYouArtwork, setForYouArtwork] = useState([]);
+    useEffect(()=>{
+        const fetchForYouArtwork = async() =>{
+            try{
+                const res = await axios.get('/api/artworks');
+
+                setForYouArtwork(res.data);
+            }
+            catch(err){
+                return new Error(err);
+            }
+        }
+        fetchForYouArtwork();
+    }, [])
+
+    const interestType = data?.user?.interestType;
+
+    console.log(forYouArtwork, interestType);
+    // Filter artworks based on interestType
+    const filteredArtworks = interestType
+        ? forYouArtwork.filter((artwork) => artwork.paintingType === interestType)
+        : [];
+    console.log(filteredArtworks);
+
+    const slides = filteredArtworks?.map((artwork)=>(
+        <FeaturedArtistCard key={artwork.id}
+                            id={artwork.id}
+                            name={artwork.name}
+                            imag={artwork.imageUrl}
+                            likeCount={artwork.likeCount}
+                            price={artwork.price}
+                            discount={artwork.discount}
+                            artist={artwork.artistName}
+                            paintingType={artwork.paintingType}
+        />
+    ))
+
 
     return (
         <>
