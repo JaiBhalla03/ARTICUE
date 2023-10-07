@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import img from "../images/art1.jpg";
 import {FaShoppingCart} from "react-icons/fa";
@@ -13,6 +13,23 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
     const {data ,status} = useSession();
     const userID = data?.user?.id;
     const [isLiked, setIsLiked] = useState(false);
+    const [isInCart, setIsInCart] = useState(false);
+
+    const checkIfInCart = async () => {
+        try {
+            const res = await axios.post('/api/checkInCart', { userId: userID, artworkId: id });
+            setIsInCart(res.data.inCart);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    console.log(isInCart);
+
+    useEffect(() => {
+        checkIfInCart();
+    }, [userID, id]);
+
     const giveLike = async()=>{
         try{
             console.log(userID, id);
@@ -48,6 +65,8 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
 
 
 
+
+
     return (
         <div className={'p-2 m-2 mx-auto shadow-gray-800 shadow-sm rounded-sm inline-block h-[400px] w-[350px]'}>
             <div className="w-80 p-2 mx-auto h-96 text-xl overflow-hidden rounded-sm relative group">
@@ -63,7 +82,12 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
                     </div>
                     <div className={'flex justify-around'}>
                         <button title={'Add the cart'} onClick={handleAddCart}>
-                            <FaShoppingCart className={'text-white hover:scale-105 active:scale-95 hover:text-gray-200 transform transition-all duration-100'} size={35}/>
+                            <FaShoppingCart
+                                className={`text-white hover:scale-105 active:scale-95 transform transition-all duration-100 ${
+                                    isInCart ? 'text-yellow-300' : ''
+                                }`}
+                                size={35}
+                            />
                         </button>
                         <button title={'Like'} onClick={handleLike}>
                             <AiFillHeart className={`text-white hover:scale-105 active:scale-95 transform transition-all duration-100 ${isLiked ? 'text-pink-500' : ''}`} size={35} />
