@@ -24,7 +24,7 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
         }
     };
 
-    console.log(isInCart);
+
 
     useEffect(() => {
         checkIfInCart();
@@ -48,7 +48,7 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
     const handleLike = ()=>{
         giveLike().then(()=>{
             setIsLiked(!isLiked);
-            console.log('artworkLiked')
+            console.log('artworkLiked', isLiked)
         })
     }
 
@@ -90,7 +90,7 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
                             />
                         </button>
                         <button title={'Like'} onClick={handleLike}>
-                            <AiFillHeart className={`text-white hover:scale-105 active:scale-95 transform transition-all duration-100 ${isLiked ? 'text-pink-500' : ''}`} size={35} />
+                            <AiFillHeart className={`hover:scale-105 active:scale-95 transform transition-all duration-100 ${isLiked ? 'text-pink-500' : 'text-white'}`} size={35} />
                         </button>
                         <Link href={`/Artworks/${id}`} title={'More Details'}>
                             <MdMore className={'text-white hover:scale-105 active:scale-95 hover:text-gray-200 transform transition-all duration-100'} size={35}/>
