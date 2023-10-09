@@ -15,42 +15,43 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isInCart, setIsInCart] = useState(false);
 
-    const checkIfInCart = async () => {
+    useEffect(() => {
+        const checkIfInCart = async () => {
+            try {
+                const res = await axios.post('/api/checkInCart', { userId: userID, artworkId: id });
+                setIsInCart(res.data.inCart);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        const checkIfLiked = async () => {
+            try {
+                const res = await axios.post('/api/checkIfLiked', { userId: userID, artworkId: id });
+                setIsLiked(res.data.isLiked);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        checkIfLiked();
+        checkIfInCart();
+    }, [userID, id]);
+
+    const handleLike = async () => {
         try {
-            const res = await axios.post('/api/checkInCart', { userId: userID, artworkId: id });
-            setIsInCart(res.data.inCart);
+            console.log(userID, id);
+            const res = await axios.post('/api/likeArtwork', { userId: userID, artworkId: id });
+
+            if (res.status === 200) {
+                // Toggle the state based on the previous state
+                setIsLiked(prevState => !prevState);
+                console.log(res);
+            } else {
+                console.log(res.data.error);
+            }
         } catch (err) {
             console.error(err);
         }
     };
-
-
-
-    useEffect(() => {
-        checkIfInCart();
-    }, [userID, id]);
-
-    const giveLike = async()=>{
-        try{
-            console.log(userID, id);
-            const res = await axios.post('/api/likeArtwork', {userId: userID, artworkId: id});
-            if(res.status === 200){
-                console.log(res);
-            }
-            else{
-                console.log(res.data.error);
-            }
-        }
-        catch(err){
-            console.error(err);
-        }
-    }
-    const handleLike = ()=>{
-        giveLike().then(()=>{
-            setIsLiked(!isLiked);
-            console.log('artworkLiked', isLiked)
-        })
-    }
 
     const handleAddCart = async()=>{
         try{
@@ -62,10 +63,6 @@ const ArtWorkCard = ({id,imageUrl, name, artistName, price, paintingType}) => {
             console.error(err);
         }
     }
-
-
-
-
 
     return (
         <div className={'p-2 m-2 mx-auto shadow-gray-800 shadow-sm rounded-sm inline-block h-[400px] w-[350px]'}>

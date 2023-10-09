@@ -16,7 +16,7 @@ export default async function handler(req, res){
             },
         });
         const artworks = likedArtworks.map((like)=>like.artwork);
-        return res.status(200).json({artworks});
+        return res.status(200).json(artworks);
     }
     catch(err){
         console.error(err);
