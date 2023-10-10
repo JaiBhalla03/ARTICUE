@@ -52,6 +52,7 @@ model User {
   artworks           Artwork[]
   cartItems          CartItem[]
   likes              Like[]
+  orders             Order[]
 }
 
 model Artwork {
@@ -68,6 +69,7 @@ model Artwork {
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   cartItems          CartItem[]
   likes              Like[]
+  orders             OrderArtwork[]
 }
 
 model Like {
@@ -95,6 +97,24 @@ model CartItem {
   artworkId String
   user      User     @relation(fields: [userId], references: [id])
   artwork   Artwork  @relation(fields: [artworkId], references: [id])
+  @@unique([userId, artworkId])
+}
+
+model Order {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  artworks  OrderArtwork[]
+  createdAt DateTime @default(now())
+}
+
+model OrderArtwork {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  artworkId   String
+  order       Order    @relation(fields: [userId], references: [id])
+  artwork     Artwork  @relation(fields: [artworkId], references: [id])
+  @@unique([userId, artworkId])
 }
 
 model VerificationToken {

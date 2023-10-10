@@ -8,12 +8,60 @@ import {useSession} from "next-auth/react";
 
 
 const Home = () => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
+    const [selectedArtist, setSelectedArtist] = useState(null);
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenPrice, setIsOpenPrice] = useState(false);
     const [isOpenArtist, setIsOpenArtist] = useState(false);
     const [likeData, setLikeData] = useState(null);
+    const [artData, setArtData] = useState(null);
+    const [artistData, setArtistData] = useState(null);
+    const [filterParams, setFilterParams] = useState({
+        category: null,
+        sortBy: null,
+        artist: null,
+    });
+
     const {data ,status} = useSession();
     const userID = data?.user?.id;
+
+    const fetchFilteredArtWorks = async()=>{
+        try{
+            const res = await axios.post('/api/filterArtworks', filterParams);
+            setArtData(res.data.artworks);
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    const applyCategoryFilter = (category) => {
+        setSelectedCategory(category);
+        setFilterParams({
+            ...filterParams,
+            category,
+        });
+        fetchFilteredArtWorks();
+    }
+
+    const applySortBy = (sortBy) => {
+        setSelectedSortOption(sortBy);
+        setFilterParams({
+            ...filterParams,
+            sortBy,
+        });
+        fetchFilteredArtWorks();
+    }
+
+    const applyArtistFilter = (artist) => {
+        setSelectedArtist(artist);
+        setFilterParams({
+            ...filterParams,
+            artist,
+        });
+        fetchFilteredArtWorks();
+    }
 
     const toggleDropdownCategory = () => {
         setIsOpenCategory(!isOpenCategory);
@@ -30,7 +78,7 @@ const Home = () => {
         setIsOpenPrice(false);
         setIsOpenCategory(false);
     }
-    const [artData, setArtData] = useState(null);
+
     useEffect(()=>{
         const fetchArtWorks = async()=>{
             try {
@@ -44,7 +92,7 @@ const Home = () => {
         }
         fetchArtWorks();
     },[])
-    const [artistData, setArtistData] = useState(null);
+
     useEffect(()=>{
         const fetchArtistName = async()=>{
             try{
@@ -71,13 +119,6 @@ const Home = () => {
         }
     }
 
-    // const checkIfIdExists = (array, id) => {
-    //     return array?.find(item => item.id === id) !== undefined;
-    // }
-    //
-    // const idToCheck = '64894976940728aca12fe32c';
-    // const exists = checkIfIdExists(likeData, idToCheck);
-    // console.log(exists)
     const artists = artistData?.data;
     return (
         <main className={'bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20'}>
@@ -91,38 +132,38 @@ const Home = () => {
                         className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg"
                         onClick={toggleDropdownCategory}
                     >
-                        Category
+                        Category: {selectedCategory || 'All'}
                     </button>
                     {isOpenCategory && (
                         <div
                             id="dropdownDelay"
                             className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
                         >
-                            <ul className="my-2" aria-labelledby="dropdownDelayButton">
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                            <ul className="" aria-labelledby="dropdownDelayButton">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applyCategoryFilter('Acrylic')}>
                                         Acrylic
-                                    </a>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applyCategoryFilter('Oil')}>
                                         Oil
-                                    </a>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applyCategoryFilter('Watercolor')}>
                                         Watercolor
-                                    </a>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applyCategoryFilter('Pastel')}>
                                         Pastel
-                                    </a>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applyCategoryFilter('Encaustic')}>
                                         Encaustic
-                                    </a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -134,23 +175,23 @@ const Home = () => {
                         className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg"
                         onClick={toggleDropdownPrice}
                     >
-                        Sort by Price
+                        Sort by Price: {selectedSortOption || 'Default'}
                     </button>
                     {isOpenPrice && (
                         <div
                             id="dropdownDelay"
                             className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
                         >
-                            <ul className="my-2" aria-labelledby="dropdownDelayButton">
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                            <ul className="" aria-labelledby="dropdownDelayButton">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applySortBy('price-high-to-low')}>
                                         High to Low
-                                    </a>
+                                    </div>
                                 </li>
-                                <li>
-                                    <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
+                                <li className={'cursor-pointer'}>
+                                    <div className="block px-4 py-2 hover:bg-gray-900" onClick={() => applySortBy('price-low-to-high')}>
                                         Low to High
-                                    </a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -162,20 +203,20 @@ const Home = () => {
                         className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg"
                         onClick={toggleDropdownArtist}
                     >
-                        Artist
+                        Artist: {selectedArtist || 'All'}
                     </button>
                     {isOpenArtist && (
                         <div
                             id="dropdownDelay"
                             className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
                         >
-                            <ul className="my-2" aria-labelledby="dropdownDelayButton">
+                            <ul className="" aria-labelledby="dropdownDelayButton">
                                 {
                                     artists?.map(artist=>(
-                                        <li>
-                                            <a href="pages/Artworks#" className="block px-4 py-2 hover:bg-gray-900">
-                                                {artist.name}
-                                            </a>
+                                        <li className={'cursor-pointer'}>
+                                            <div className="block px-4 py-2 hover:bg-gray-900" onClick={()=>applyArtistFilter(artist.name)}>
+                                                {artist.fullName}
+                                            </div>
                                         </li>
                                     ))
                                 }
