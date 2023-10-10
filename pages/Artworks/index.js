@@ -125,11 +125,11 @@ const Home = () => {
             <Bounce triggerOnce>
                 <h1 className={'my-2 flex text-3xl md:text-5xl font-bold'}>Checkout the artworks <FaPaintBrush className={'text-white mx-2'} size={40}/></h1>
             </Bounce>
-            <div className={'mx-2 mb-4 p-4 shadow-sm shadow-gray-800 flex justify-around'}>
+            <div className={'mx-2 mb-4 p-4 shadow-sm shadow-gray-800 flex flex-col md:flex-row justify-around'}>
                 <div className="relative inline-block">
                     <button
                         id="dropdownDelayButton"
-                        className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg"
+                        className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg w-full md:w-auto"
                         onClick={toggleDropdownCategory}
                     >
                         Category: {selectedCategory || 'All'}
@@ -137,7 +137,7 @@ const Home = () => {
                     {isOpenCategory && (
                         <div
                             id="dropdownDelay"
-                            className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
+                            className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-full md:w-44"
                         >
                             <ul className="" aria-labelledby="dropdownDelayButton">
                                 <li className={'cursor-pointer'}>
@@ -172,7 +172,7 @@ const Home = () => {
                 <div className="relative inline-block">
                     <button
                         id="dropdownDelayButton"
-                        className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg"
+                        className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg w-full md:w-auto"
                         onClick={toggleDropdownPrice}
                     >
                         Sort by Price: {selectedSortOption || 'Default'}
@@ -180,7 +180,7 @@ const Home = () => {
                     {isOpenPrice && (
                         <div
                             id="dropdownDelay"
-                            className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
+                            className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-full md:w-44"
                         >
                             <ul className="" aria-labelledby="dropdownDelayButton">
                                 <li className={'cursor-pointer'}>
@@ -200,7 +200,7 @@ const Home = () => {
                 <div className="relative inline-block">
                     <button
                         id="dropdownDelayButton"
-                        className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg"
+                        className="shadow-gray-800 shadow-sm rounded-sm p-2 text-lg w-full md:w-auto"
                         onClick={toggleDropdownArtist}
                     >
                         Artist: {selectedArtist || 'All'}
@@ -208,7 +208,7 @@ const Home = () => {
                     {isOpenArtist && (
                         <div
                             id="dropdownDelay"
-                            className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-44"
+                            className="absolute z-10 mt-2 animate-slide-down bg-gray-950 divide-y divide-gray-100 rounded-sm shadow-sm shadow-gray-800 w-full md:w-44"
                         >
                             <ul className="" aria-labelledby="dropdownDelayButton">
                                 {
