@@ -46,8 +46,20 @@ const Cart = () => {
     }
     const total = totalAmount(details?.cartItems);
     const totalDiscounted = totalDiscountedPrice(details?.cartItems);
-    console.log(1)
-    console.log(details);
+
+    const handleOrderNow = async()=>{
+        try{
+            const res = await axios.post('/api/orderNow', {
+                userId: session?.user?.id,
+                cartItems: details?.cartItems,
+            });
+            console.log('Order placed: ', res.data.order);
+        }
+        catch(err){
+            console.error('Error placing order: ', err);
+        }
+    };
+
     const items = details?.cartItems;
     console.log(items);
     return (
@@ -103,7 +115,12 @@ const Cart = () => {
                         <p className={'w-full p-2 shadow-gray-800 shadow-sm rounded-sm'}>After discount: ₹{totalDiscounted.toFixed(2)}</p>
                         <p className={'w-full p-2 shadow-gray-800 shadow-sm rounded-sm'}>You saved ₹{(total - totalDiscounted).toFixed(2)} 🥳</p>
                         <div className={'flex justify-center'}>
-                            <button className={'text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90'}>Order Now!</button>
+                            <button
+                                onClick={handleOrderNow}
+                                className={'text-white p-4 text-xl transition-all duration-500 text-white bg-gray-950 shadow-sm shadow-gray-800 rounded-sm hover:scale-110 active:scale-90'}
+                            >
+                                Order Now!
+                            </button>
                         </div>
                     </div>
                 </div>

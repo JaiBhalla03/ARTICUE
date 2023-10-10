@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
-import test from '../images/user.png';
 import Image from 'next/image';
 import {FaEdit} from 'react-icons/fa';
 import {
@@ -10,12 +9,9 @@ import {
     AiFillEdit,
     AiFillHeart,
     AiOutlinePlus,
-    AiTwotoneMoneyCollect
 } from "react-icons/ai";
 import { formatDistanceToNow } from 'date-fns';
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {MdCancel, MdOutlineCancel, MdOutlineCancelPresentation} from "react-icons/md";
 import ArtworksUpdateForm from "../components/ArtworksUpdateForm";
 import OrdersDashboard from "../components/OrdersDashboard";
 import BecomeFeatured from '../components/BecomeFeatured'
@@ -37,6 +33,8 @@ const Dashboard = () => {
 
     const [memberShipForm, setMemberShipForm] = useState(false);
     const [memberShipFormRemove, setMemberShipFormRemove] = useState(false);
+    const [orderDetails, setOrderDetails] = useState(null);
+
     const handleAddButtonClick = () => {
         setIsFormOpen(true);
     };
@@ -51,7 +49,7 @@ const Dashboard = () => {
     const handleRemoveMemberShipForm = ()=>{
         setMemberShipFormRemove(true);
     };
-    console.log(session?.user?.id)
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -62,14 +60,24 @@ const Dashboard = () => {
                 setDetails(null);
             }
         };
+        const fetchOrderDetails = async () => {
+            try{
+                const res = await axios.get('/api/getOrders');
+                const filteredOrders = res.data.orders.filter(order => order.artwork.userId === session?.user?.id);
+                setOrderDetails(filteredOrders);
+            }
+            catch(err){
+                console.error(err);
+                setOrderDetails(null);
+            }
+        }
         fetchUserData();
+        fetchOrderDetails();
     }, [session]);
 
     const handleEditProfileImage = () => {
         setEditModalOpen(true);
     };
-
-
 
     const handleModalSubmit = async () => {
         try {
@@ -127,10 +135,8 @@ const Dashboard = () => {
 
     const createdAt = "2023-05-22T20:38:25.609Z";
     const timeAgo = getTimeAgo(createdAt);
-    console.log(timeAgo);
 
     const artworks = details?.artworks
-    console.log(details)
     const discountedPrice = (price, dis)=>{
         return Math.floor(price - price * dis/100);
     }
@@ -197,12 +203,14 @@ const Dashboard = () => {
         // You may also want to refresh the artworks list or update the specific artwork in the state if needed.
     };
 
+    console.log(orderDetails);
+
     return (
-        <main className="bg-gray-950 text-white py-8 px-4 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
+        <main className="bg-gray-950 text-white py-8 px-2 pt-4 sm:px-16 md:px-24 lg:px-28 sm:py-4 md:py-20">
             <div className="shadow-gray-800 shadow-sm px-2 py-2 md:px-8 md:p-8 lg:py-8 lg:px-32 flex items center justify-between flex-col-reverse md:flex-row">
                 <div className="flex items-center flow-col justify-center">
                     <div>
-                        <div classNam   e="mb-1">
+                        <div className="mb-1">
                             <p className="text-sm text-gray-800">Name</p>
                             <div className="text-sm md:text-xl font-bold">
                                 {details?.fullName || (

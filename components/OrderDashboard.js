@@ -1,26 +1,64 @@
 import React from 'react';
-import {AiFillEye} from "react-icons/ai";
+import {AiFillDelete} from "react-icons/ai";
+import {formatDistanceToNow} from "date-fns";
+import Image from 'next/image';
+import axios from "axios";
 
-const OrderDashboard = () => {
+const OrderDashboard = ({id, imageUrl, artworkName, customerName, address, price, createdAt, removeFromOrder}) => {
+    function getTimeAgo(creatAt) {
+        const currentDate = new Date();
+        return formatDistanceToNow(new Date(creatAt), { addSuffix: true, includeSeconds: true });
+    }
+
+    const time = getTimeAgo(createdAt);
+
+    const handleDelete = async(id)=>{
+        const data = {id: id};
+        try{
+            const res = await axios.post('/api/deleteOrderArtworks', data);
+            console.log(res);
+        }
+        catch(err){
+            console.error(err)
+            return new Error(err);
+        }
+    }
+
+    const deleteItem = () => {
+        handleDelete(id).then(() => {
+            removeFromOrder(id); // Update local state on successful deletion
+            console.log('cart items deleted!!');
+        });
+    };
+
     return (
-        <div className={'flex justify-between shadow-gray-800 shadow-sm h-16 my-2 rounded-sm'}>
-            <div className={'flex justify-around w-10/12'}>
-                <div className={'flex items-center shadow-sm shadow-gray-800 m-1 px-3'}>
-                    [Artworks Name]
+        <div className={'shadow-gray-800 shadow-sm my-2 rounded-sm px-10'}>
+            <div className={'flex justify-between items-center'}>
+                <div className={'p-1 shadow-sm rounded-sm shadow-gray-800 h-full w-auto'}>
+                    <Image src={imageUrl} alt={''} width={40} height={40} className={''}/>
                 </div>
-                <div className={'flex items-center shadow-sm shadow-gray-800 m-1 px-3'}>
-                    [Customer Name]
+                <div>
+                    <div className={''}>
+                        {artworkName}
+                    </div>
+                    <div>
+                        ₹{price}
+                    </div>
                 </div>
-                <div className={'flex items-center shadow-sm shadow-gray-800 m-1 px-3'}>
-                    [Status]
+                <div>
+                    <div className={'font-bold'}>
+                        {customerName}
+                    </div>
+                    <div className={''}>
+                        {address}
+                    </div>
+                </div>
+                <div onClick={deleteItem}>
+                    <AiFillDelete size={30} className={'hover:scale-110 active:scale-95 hover:text-red-500 transition-all duration-300 cursor-pointer'}/>
                 </div>
             </div>
-            <div className={'flex items-center p-4'}>
-                <AiFillEye
-                    className={'hover:text-gray-300 hover:scale-110 active:scale-90 duration-300 transform transition-all'}
-                    title={'View order details!'}
-                    size={35}
-                />
+            <div className={'flex items-center justify-end p-1 text-gray-600'}>
+                {time}
             </div>
         </div>
     );
