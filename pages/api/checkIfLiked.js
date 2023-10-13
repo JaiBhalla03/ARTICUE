@@ -5,15 +5,17 @@ export default async function handler(req, res) {
     try {
         const { userId, artworkId } = req.body;
 
-        // Check if the like exists
-        const like = await prisma.like.findUnique({
-            where: {
-                userId_artworkId: {
-                    userId,
-                    artworkId,
+        let like;
+        if(userId && artworkId){
+            like = await prisma.like.findUnique({
+                where: {
+                    userId_artworkId: {
+                        userId,
+                        artworkId,
+                    },
                 },
-            },
-        });
+            });
+        }
 
         const isLiked = Boolean(like);
 
