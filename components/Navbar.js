@@ -148,7 +148,7 @@ export default function Navbar(){
                                                     )}
                                                 </div>
 
-                                            </button>: <button onClick={()=>signIn( ['github','google'] ,  {callbackUrl:'http://localhost:3000/details'})}><FaUser size={20}/></button>}
+                                            </button>: <button onClick={()=>signIn( ['github','google'] ,  {callbackUrl:'https://articue.vercel.app/details'})}><FaUser size={20}/></button>}
                                     </div>
                                 </li>
                             </ul>
