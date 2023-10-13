@@ -7,19 +7,22 @@ import GitHubProvider from 'next-auth/providers/github';
 
 
 async function getUser(sessionToken){
+    console.log(sessionToken);
     try {
-        const session = await prisma.session.findUnique({
-            where: {
-                sessionToken: sessionToken,
-            },
-            include: {
-                user: {
-                    include: {
-                        artworks: true,
+        if(sessionToken){
+            const session = await prisma.session.findUnique({
+                where: {
+                    sessionToken: sessionToken,
+                },
+                include: {
+                    user: {
+                        include: {
+                            artworks: true,
+                        },
                     },
                 },
-            },
-        });
+            });
+        }
 
         if (session && session.user) {
             return session.user;
