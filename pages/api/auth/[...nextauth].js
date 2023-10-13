@@ -7,10 +7,11 @@ import GitHubProvider from 'next-auth/providers/github';
 
 
 async function getUser(sessionToken){
-    console.log(sessionToken);
+    //console.log(sessionToken);
     try {
+        let session;
         if(sessionToken){
-            const session = await prisma.session.findUnique({
+            session = await prisma.session.findUnique({
                 where: {
                     sessionToken: sessionToken,
                 },
@@ -50,9 +51,11 @@ export default NextAuth({
     ],
     callbacks: {
         async session(session, user){
-            const fullUser = await getUser(session.sessionToken);
-            if(fullUser){
-                session.user = fullUser;
+            if(session){
+                const fullUser = await getUser(session.sessionToken);
+                if(fullUser){
+                    session.user = fullUser;
+                }
             }
             return session;
         },
