@@ -234,7 +234,7 @@ export default function Navbar(){
                                         <div>
                                             <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
                                         </div>
-                                    </button>: <button className={'flex items-center gap-2'} onClick={()=>signIn('github', {callbackUrl:'http://localhost:3000/details'})}>SignIn/Login<FaUser size={20}/></button>}
+                                    </button>: <button className={'flex items-center gap-2'} onClick={()=>signIn('github', {callbackUrl:'https://articue.vercel.app/details'})}>SignIn/Login<FaUser size={20}/></button>}
                             </div>
                         </div>
                     </ul>
