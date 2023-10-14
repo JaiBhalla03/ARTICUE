@@ -213,7 +213,7 @@ const Home = () => {
                             <ul className="" aria-labelledby="dropdownDelayButton">
                                 {
                                     artists?.map(artist=>(
-                                        <li className={'cursor-pointer'}>
+                                        <li key={artist.id} className={'cursor-pointer'}>
                                             <div className="block px-4 py-2 hover:bg-gray-900" onClick={()=>applyArtistFilter(artist.name)}>
                                                 {artist.fullName}
                                             </div>
@@ -230,14 +230,16 @@ const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {
                             artData?.map((artData1)=>(
-                                <ArtWorkCard
-                                    id = {artData1.id}
-                                    imageUrl={artData1.imageUrl}
-                                    name={artData1.name}
-                                    price={artData1.price}
-                                    artistName={artData1.artistName}
-                                    paintingType={artData1.paintingType}
-                                />
+                                <div key={artData1.id}>
+                                    <ArtWorkCard
+                                        id = {artData1.id}
+                                        imageUrl={artData1.imageUrl}
+                                        name={artData1.name}
+                                        price={artData1.price}
+                                        artistName={artData1.artistName}
+                                        paintingType={artData1.paintingType}
+                                    />
+                                </div>
                             ))
                         }
                     </div>

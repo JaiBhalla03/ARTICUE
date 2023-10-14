@@ -29,12 +29,14 @@ const Index = () => {
                 artistData?(
                     <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'}>
                         {artistData?.map((artist1)=>(
-                            <ArtistsCard
-                                userImage={artist1.userImage}
-                                name={artist1.name}
-                                numberOfArtworks={artist1.artworks.length}
-                                id={artist1.id}
-                            />
+                            <div key={artist1.id}>
+                                <ArtistsCard
+                                    userImage={artist1.userImage}
+                                    name={artist1.name}
+                                    numberOfArtworks={artist1.artworks.length}
+                                    id={artist1.id}
+                                />
+                            </div>
                         ))}
                     </div>
                 ):(

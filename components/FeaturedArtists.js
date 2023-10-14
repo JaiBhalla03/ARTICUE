@@ -28,7 +28,7 @@ const FeaturedArtists = () => {
             </Bounce>
             {
                 artistData?.map((artist_featured)=>(
-                    <Fade delay={150} triggerOnce>
+                    <Fade key={artist_featured.id} delay={150} triggerOnce>
                         <FeaturedArtist name={artist_featured.fullName} artworks={artist_featured.artworks}/>
                     </Fade>
                 ))
