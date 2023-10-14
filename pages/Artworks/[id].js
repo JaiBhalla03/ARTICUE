@@ -136,7 +136,7 @@ export default ArtworkPage;
 
 export const getServerSideProps = async({params})=>{
     try{
-        const res = await axios.get(`http://localhost:3000/api/artworks/${params.id}`);
+        const res = await axios.get(`https://articue.vercel.app/api/artworks/${params.id}`);
         return {
             props:{
                 artwork: res.data,

@@ -141,7 +141,7 @@ export default Artist;
 
 export const getServerSideProps = async({params})=>{
     try{
-        const res = await axios.get(`http://localhost:3000/api/artists/${params.id}`);
+        const res = await axios.get(`https://articue.vercel.app/api/artists/${params.id}`);
         return {
             props:{
                 artist: res.data,
