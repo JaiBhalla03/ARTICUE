@@ -37,7 +37,7 @@ async function getUser(sessionToken){
 }
 
 export default NextAuth({
-    secret: process.env.AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     adapter: PrismaAdapter(prisma),
     providers: [
         GoogleProvider({
