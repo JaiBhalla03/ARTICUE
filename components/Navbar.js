@@ -186,11 +186,11 @@ export default function Navbar(){
                         {
                             data && data?.user?.role === 'Buyer' && (
                                 <div onClick={toggleMenu} className={''}>
-                                    <a className="flex justify-center items-center hover:text-gray-300">
+                                    <Link href={'/cart'} className="flex justify-center items-center hover:text-gray-300">
                                         <div className={'flex items-center'}>
                                             See your cart <FaShoppingCart className={'ml-2'} size={24}/>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             )
                         }
