@@ -230,7 +230,7 @@ export default function Navbar(){
                         <div className={'relative flex flex-col justify-center items-center'}>
                             <div className="hover:text-gray-300 underline flex items-center" onClick={() => setShowPopup(!showPopup)}>
                                 {data ?
-                                    <button onClick={toggleDropdownDetails} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
+                                    <button onClick={()=>signOut()} className={'p-1 hover:scale-105 active:scale-95 transform transition-all duration-500 rounded-sm shadow-gray-800 shadow-sm'}>
                                         <div>
                                             <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
                                         </div>
