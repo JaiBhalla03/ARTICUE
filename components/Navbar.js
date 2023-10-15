@@ -197,11 +197,11 @@ export default function Navbar(){
                         {
                             data && (
                                 <div onClick={toggleMenu} className={''}>
-                                    <a className="flex justify-center items-center hover:text-gray-300">
+                                    <Link href={'/like'} className="cursor-pointer flex justify-center items-center hover:text-gray-300">
                                         <div className={'flex items-center'}>
                                             See your Liked arts <AiFillHeart className={'ml-2'} size={24}/>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             )
                         }
@@ -234,7 +234,7 @@ export default function Navbar(){
                                         <div>
                                             <Image className={'rounded-sm cursor-pointer'} src={data.user.image} alt={''} width={35} height={35}/>
                                         </div>
-                                    </button>: <button className={'flex items-center gap-2'} onClick={()=>signIn('github', {callbackUrl:'https://articue.vercel.app/details'})}>SignIn/Login<FaUser size={20}/></button>}
+                                    </button>: <button className={'flex items-center gap-2'} onClick={()=>signIn( ['github','google'] ,  {callbackUrl:'https://articue.vercel.app/details'})}>SignIn/Login<FaUser size={20}/></button>}
                             </div>
                         </div>
                     </ul>
